@@ -9,11 +9,10 @@ function Filter() {
     const manufacturers = ["Apple", "Samsung", "MSI", "Dell", "HP"];
 
     return (
-        <div className="w-72 h-screen">
+        <div className="w-72 block h-screen xl:block lg:hidden">
             <div className="p-4 rounded-xl bg-neutral-800 text-white w-full sticky top-28">
                 <h2 className="text-lg font-bold mb-4">Фильтры</h2>
 
-                {/* Фильтр по цене */}
                 <div className="mb-4">
                     <label className="block text-sm font-medium mb-2">Цена (USD)</label>
                     <div className="flex gap-2">
@@ -42,7 +41,6 @@ function Filter() {
                     </div>
                 </div>
 
-                {/* Фильтр по производителю */}
                 <div className="mb-4">
                     <label className="block text-sm font-medium mb-2">Производитель</label>
                     <select
@@ -59,7 +57,6 @@ function Filter() {
                     </select>
                 </div>
 
-                {/* Сортировка */}
                 <div className="mb-4">
                     <label className="block text-sm font-medium mb-2">Сортировка</label>
                     <select
@@ -74,7 +71,6 @@ function Filter() {
                     </select>
                 </div>
 
-                {/* Кнопка применения фильтров */}
                 <button
                     className="w-full bg-blue-600 hover:bg-blue-500 text-white py-2 rounded-lg font-medium mt-4"
                     onClick={() => console.log({ priceRange, manufacturer, sortOption })}

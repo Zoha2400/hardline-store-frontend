@@ -17,7 +17,7 @@ export default function Home() {
             <div className="items my-3 flex gap-4 justify-between">
                 <Filter/>
 
-                <div className="items grid grid-cols-4 gap-4 justify-items-center">
+                <div className="items grid grid-cols-2 2xl:grid-cols-4 xl:grid-cols-2 gap-4 justify-items-center">
                     <Card/>
                     <Card/>
                     <Card/>
