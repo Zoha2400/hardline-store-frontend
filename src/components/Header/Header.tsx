@@ -5,7 +5,7 @@ import Image from "next/image";
 
 function Header() {
     return (
-        <header className="fixed top-0 left-0 bg-neutral-700 w-full h-24 border-b-1 border-b-white text-white">
+        <header className="fixed top-0 z-20 left-0 bg-neutral-700 w-full h-24 border-b-1 border-b-white text-white">
             <section className="h-8 bg-neutral-900 flex justify-between items-center p-2 text-xs">
                 <p className="text-gray-300">
                     Mon-Thu: <span className="text-white">9:00 AM - 5:30 PM</span>
