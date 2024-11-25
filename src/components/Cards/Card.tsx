@@ -16,7 +16,7 @@ function Card() {
                 />
             </div>
 
-            <div className="w-full rating flex p-2 text-yellow-400">
+            <div className="w-full rating flex px-3 py-2 text-yellow-400">
                 <Icon icon="material-symbols:kid-star" />
                 <Icon icon="material-symbols:kid-star" />
                 <Icon icon="material-symbols:kid-star" />
@@ -26,7 +26,7 @@ function Card() {
                 <p className="text-xs px-2 text-gray-400">4.5 out of 5</p>
             </div>
 
-            <div className="p-2 flex flex-col gap-3">
+            <div className="p-3 flex flex-col gap-3">
                 <p className="text-sm font-bold p-2gi">
                     EX DISPLAY : MSI Pro 16 Flex-036AU 15.6 MULTITOUCH
                 </p>
