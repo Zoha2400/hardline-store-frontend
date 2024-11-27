@@ -24,7 +24,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
         {shouldUseLayout ? (
             <>
                 <Header />
-                <main>{children}</main>
+                <main className="mt-28">{children}</main>
                 <Footer />
             </>
         ) : (

@@ -3,7 +3,7 @@ import Breadcrumbs from "@/components/Header/Breadcrupms";
 
 export default function Home() {
     return (
-        <div className="w-full pt-16">
+        <div className="w-full h-screen px-2">
             <Breadcrumbs/>
             <p>Profile</p>
         </div>
