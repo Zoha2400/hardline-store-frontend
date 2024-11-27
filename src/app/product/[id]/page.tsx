@@ -2,8 +2,8 @@
 
 import { useParams } from 'next/navigation';
 
-export default function ProductPage() {
-    const { id } = useParams();  // Получаем параметр 'id' из URL
+export default function Page() {
+    const { id } = useParams();
 
     return (
         <div>
@@ -11,3 +11,6 @@ export default function ProductPage() {
         </div>
     );
 }
+
+
+

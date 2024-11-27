@@ -1,4 +1,3 @@
-import Image from "next/image";
 import Breadcrumbs from "@/components/Header/Breadcrupms";
 
 export default function Home() {
