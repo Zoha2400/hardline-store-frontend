@@ -1,34 +1,36 @@
-import type { Metadata } from "next";
-import localFont from "next/font/local";
-import "./globals.css";
+"use client"
+
+import { usePathname } from "next/navigation";
 import Header from "@/components/Header/Header";
 import Footer from "@/components/Footer";
+import "./globals.css";
 
+const pagesWithoutLayout = [
+    "auth",
+    "auth/reg",
+    "auth/login",
+    "auth/forgot",
+    "auth/reset"
+];
 
-export const metadata: Metadata = {
-  title: "Hardline Shop",
-  description: "Website for shopping",
-};
+export default function RootLayout({ children }: { children: React.ReactNode }) {
+    const pathname = usePathname(); // Получаем текущий путь
 
-export default function RootLayout({
-  children,
-}: Readonly<{
-  children: React.ReactNode;
-}>) {
-  return (
-    <html lang="en">
-      <body
-        className={`antialiased`}
-      >
-        <Header/>
+    const shouldUseLayout = !pagesWithoutLayout.some((page) => pathname.includes(page));
 
-        <main className="pt-24">
-          {children}
-        </main>
-
-        <Footer/>
-
-      </body>
-    </html>
-  );
+    return (
+        <html lang="en">
+        <body className="antialiased">
+        {shouldUseLayout ? (
+            <>
+                <Header />
+                <main>{children}</main>
+                <Footer />
+            </>
+        ) : (
+            <main>{children}</main>
+        )}
+        </body>
+        </html>
+    );
 }
