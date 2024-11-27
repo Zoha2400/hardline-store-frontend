@@ -1,4 +1,4 @@
-"use clientg"
+"use client"
 
 import { useParams } from 'next/navigation';
 
