@@ -14,7 +14,7 @@ export default function Home() {
 
             <SerachLine/>
 
-            <div className="items my-3 flex gap-4 justify-between">
+            <div className="items my-3 h-fit flex gap-4 justify-between">
                 <Filter/>
 
                 <div className="items grid grid-cols-2 2xl:grid-cols-4 xl:grid-cols-2 gap-4 justify-items-center">

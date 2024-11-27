@@ -9,7 +9,7 @@ function Filter() {
     const manufacturers = ["Apple", "Samsung", "MSI", "Dell", "HP"];
 
     return (
-        <div className="w-72 block h-screen xl:block lg:hidden">
+        <div className="w-72 block xl:block lg:hidden">
             <div className="p-4 rounded-xl bg-neutral-800 text-white w-full sticky top-28">
                 <h2 className="text-lg font-bold mb-4">Фильтры</h2>
 
