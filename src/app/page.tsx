@@ -1,4 +1,3 @@
-import Image from "next/image";
 import Dragon from "@/components/Header/Dragon";
 import Breadcrumbs from "@/components/Header/Breadcrupms";
 import Card from "@/components/Cards/Card";
