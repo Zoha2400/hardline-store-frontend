@@ -1,6 +1,7 @@
 import React from 'react';
 import { Icon } from '@iconify/react';
 import Image from "next/image";
+import Link from 'next/link'
 
 
 function Header() {
@@ -24,9 +25,12 @@ function Header() {
             </section>
 
             <section className="flex h-16 justify-between items-center px-4">
-                <div className="">
-                    <Image alt="main_icon" src="/logo.png" width={50} height={50}/>
-                </div>
+                <Link href="/">
+                    <div className="">
+                        <Image alt="main_icon" src="/logo.png" width={50} height={50}/>
+                    </div>
+                </Link>
+
 
                 <nav className="flex justify-between items-center gap-5 text-sm">
                     <a href='#' className="text-gray-300 hover:text-white">Home</a>

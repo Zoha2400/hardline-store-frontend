@@ -1,14 +1,17 @@
 import React from "react";
 import { Icon } from "@iconify/react";
 import Image from "next/image";
+import Link from "next/link";
 
 function Footer() {
     return (
-        <footer className="bg-neutral-900 mt-40 text-gray-300 py-8">
+        <footer className="bg-neutral-900 mt-5 text-gray-300 py-8">
             <div className="container mx-auto px-4 grid grid-cols-1 md:grid-cols-3 gap-8">
                 {/* Логотип и описание */}
                 <div className="flex flex-col items-center md:items-start">
+                    <Link href="/">
                     <Image alt="logo" src="/logo.png" width={50} height={50} />
+                    </Link>
                     <p className="w-52 mt-4 text-center md:text-left text-sm leading-relaxed">
                         <b>Hardline Shop</b> – ваш надежный магазин техники. Мы предоставляем лучшие решения для дома и офиса.
                     </p>

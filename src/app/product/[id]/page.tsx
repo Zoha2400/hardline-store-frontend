@@ -57,9 +57,25 @@ function Page() {
 
                     </div>
                 </div>
-                <div className="w-1/4 h-96 bg-red-500">
-                    fdsjkfdskjfds
+                <div className="w-1/4 h-96 flex flex-col gap-2">
+                    <Icon
+                        icon="material-symbols:add-shopping-cart"
+                        className="text-4xl hover:text-blue-500 transform transition-transform duration-300 hover:scale-125"
+                    />
+                    <Icon
+                        icon="material-symbols:sms"
+                        className="text-4xl hover:text-green-500 transform transition-transform duration-300 hover:scale-125"
+                    />
+                    <Icon
+                        icon="mdi-light:heart"
+                        className="text-4xl hover:text-red-500 transform transition-transform duration-300 hover:scale-125"
+                    />
+                    <Icon
+                        icon="mdi-light:heart-off"
+                        className="text-4xl hover:text-gray-500 transform transition-transform duration-300 hover:scale-125"
+                    />
                 </div>
+
 
             </div>
         </div>
