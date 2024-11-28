@@ -14,7 +14,7 @@ const pagesWithoutLayout = [
 ];
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
-    const pathname = usePathname(); // Получаем текущий путь
+    const pathname = usePathname();
 
     const shouldUseLayout = !pagesWithoutLayout.some((page) => pathname.includes(page));
 

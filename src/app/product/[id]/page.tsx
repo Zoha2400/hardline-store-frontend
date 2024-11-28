@@ -2,7 +2,7 @@
 
 import { useParams } from 'next/navigation';
 
-export default function Page() {
+function Page() {
     const { id } = useParams();
 
     return (
@@ -11,6 +11,4 @@ export default function Page() {
         </div>
     );
 }
-
-
-
+export default Page;
