@@ -33,14 +33,12 @@ function Header() {
 
 
                 <nav className="flex justify-between items-center gap-5 text-sm">
-                    <a href='#' className="text-gray-300 hover:text-white">Home</a>
-                    <a href='#' className="text-gray-300 hover:text-white">Laptops</a>
-                    <a href='#' className="text-gray-300 hover:text-white">Desktop PCs</a>
-                    <a href='#' className="text-gray-300 hover:text-white">Networking Devices</a>
-                    <a href='#' className="text-gray-300 hover:text-white">Pc Parts</a>
-                    <a href='#' className="text-gray-300 hover:text-white">Repairs</a>
-                    <a href='#' className="text-gray-300 hover:text-white">All products</a>
-                    <a href='#' className="text-gray-300 hover:text-white">About Us</a>
+                    <Link href='/' className="text-gray-300 hover:text-white">All Products</Link>
+                    <Link href='/laptops' className="text-gray-300 hover:text-white">Laptops</Link>
+                    <Link href='/pc' className="text-gray-300 hover:text-white">PC</Link>
+                    <Link href='/repairs' className="text-gray-300 hover:text-white">Repairs</Link>
+                    <Link href='/about' className="text-gray-300 hover:text-white">About Us</Link>
+                    <Link href='/contacts' className="text-gray-300 hover:text-white">Contacts</Link>
                 </nav>
 
                 <div className="flex items-center gap-2">

@@ -10,7 +10,8 @@ const pagesWithoutLayout = [
     "auth/reg",
     "auth/login",
     "auth/forgot",
-    "auth/reset"
+    "auth/reset",
+    "profile/change"
 ];
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {

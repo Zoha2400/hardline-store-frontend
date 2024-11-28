@@ -56,7 +56,6 @@ export default function Home() {
     <div className="container flex justify-center">
         <div className="w-11/12">
          <Dragon/>
-            <Breadcrumbs/>
 
             <SerachLine/>
 
