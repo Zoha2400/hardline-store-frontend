@@ -1,4 +1,5 @@
 import React from 'react';
+import Link from "next/link";
 
 function Profile() {
     return (
@@ -34,10 +35,14 @@ function Profile() {
                 </p>
             </div>
             <div className="flex justify-between items-center mt-6">
-                <button className="px-6 py-3 bg-gradient-to-r from-cyan-500 to-teal-500 text-black font-semibold rounded-lg shadow-md hover:shadow-lg transform hover:scale-105 transition-transform">
-                    Редактировать
-                </button>
-                <button className="px-6 py-3 bg-gradient-to-r from-red-600 to-pink-600 text-white font-semibold rounded-lg shadow-md hover:shadow-lg transform hover:scale-105 transition-transform">
+                <Link href="/profile/change">
+                    <button
+                        className="px-6 py-3 bg-gradient-to-r from-cyan-500 to-teal-500 text-black font-semibold rounded-lg shadow-md hover:shadow-lg transform hover:scale-105 transition-transform">
+                        Редактировать
+                    </button>
+                </Link>
+                <button
+                    className="px-6 py-3 bg-gradient-to-r from-red-600 to-pink-600 text-white font-semibold rounded-lg shadow-md hover:shadow-lg transform hover:scale-105 transition-transform">
                     Удалить
                 </button>
             </div>

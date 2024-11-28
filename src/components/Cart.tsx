@@ -104,11 +104,11 @@ function Cart() {
                             <div className="flex gap-3">
                                 {/* Кнопка "Просмотр" */}
                                 <Link href={card.url}>
-                                    <button className="px-4 py-2 text-white bg-teal-500 text-black font-semibold rounded-lg hover:bg-teal-600 transition">
+                                    <button className="px-6 py-3 bg-gradient-to-r from-cyan-500 to-teal-500 text-black font-semibold rounded-lg shadow-md hover:shadow-lg transform hover:scale-105 transition-transform">
                                         Просмотр
                                     </button>
                                 </Link>
-                                <button className="px-4 py-2 bg-red-600 text-white rounded-lg hover:bg-red-500 transition">
+                                <button className="px-6 py-3 bg-gradient-to-r from-red-600 to-pink-600 text-white font-semibold rounded-lg shadow-md hover:shadow-lg transform hover:scale-105 transition-transform">
                                     Удалить
                                 </button>
                             </div>
