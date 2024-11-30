@@ -4,7 +4,8 @@ import { useParams } from 'next/navigation';
 import Image from "next/image";
 import Breadcrumbs from "@/components/Header/Breadcrupms";
 import {Icon} from "@iconify/react";
-import React from "react";
+import React, {useEffect, useState} from "react";
+import axios from "axios";
 
 const fakeData = {
         img: '/example.svg',
@@ -20,10 +21,28 @@ const fakeData = {
 function Page() {
     const { id } = useParams();
 
+    const [card, setCards] : any = useState([])
+
+    useEffect(() => {
+        const fetchData = async () => {
+            try {
+                const response = await axios.get(`http://localhost:8000/product/${id}`);
+                console.log(response.data);
+                // @ts-ignore
+                setCards(response.data);
+            } catch (error) {
+                console.error('Error fetching data:', error);
+            }
+        };
+
+        fetchData();
+    }, []);
+
+
     return (
         <div className="p-8 flex gap-5 justify-start">
             <div className="w-1/3">
-                <Image src={fakeData.img} alt={fakeData.title}
+                <Image src={card.img} alt={card.title}
                        width={400} height={300} className="rounded-2xl w-full"/>
             </div>
 
@@ -33,9 +52,9 @@ function Page() {
 
                     <div className="w-4/6 flex flex-col gap-2">
 
-                        <h1 className="mt-5 text-4xl mb-3 font-bold text-white">{fakeData.title}</h1>
-                        <p className="text-xs text-white">{fakeData.description}</p>
-                        <p className="text font-bold text-white">{fakeData.shortInfo}</p>
+                        <h1 className="mt-5 text-4xl mb-3 font-bold text-white">{card.product_name}</h1>
+                        <p className="text-xs text-white">{card.product_description}</p>
+                        <p className="text font-bold text-white">{card.shortInfo}</p>
                         <div className="w-full  mt-2 rating flex text-yellow-400">
                             <Icon icon="material-symbols:kid-star"/>
                             <Icon icon="material-symbols:kid-star"/>
@@ -43,16 +62,16 @@ function Page() {
                             <Icon icon="material-symbols:kid-star"/>
                             <Icon icon="material-symbols:kid-star-outline"/>
 
-                            <p className="text-xs px-2 text-gray-400">{fakeData.rate} out of 5</p>
+                            <p className="text-xs px-2 text-gray-400">{card.rate} out of 5</p>
                         </div>
 
                         <div className="flex mt-8 items-center gap-4">
-                            <p className=" text-2xl text-green-400 font-normal">${fakeData.price}</p>
-                            <a href={fakeData.url}
+                            <p className=" text-2xl text-green-400 font-normal">${card.price}</p>
+                                <a href={card.url}
                                className=" w-fit h-fit bg-blue-500 text-white text-sm py-2 px-4 rounded-md">Buy
                                 Now</a></div>
 
-                        <p className="mt-5">Have questions? <a href={`/product/${fakeData.id}/contact`}
+                        <p className="mt-5">Have questions? <a href={`/product/${card.id}/contact`}
                                                                className="text-blue-500 underline">Contact Us.</a></p>
 
                     </div>

@@ -8,54 +8,6 @@ import Filter from "@/components/Cards/Filter";
 
 import axios from 'axios';
 
-
-// const cards = [
-//     {
-//         img: '/example.svg',
-//         rate: 4.5,
-//         title: 'MSI X344',
-//         price: 1.499,
-//         description: 'Intel Core i9-11900KF, 16GB DDR4, 512GB SSD, NVIDIA GeForce RTX 3060 Ti, 165W, 100% UEFI, 144Hz, 1080p',
-//         id: '184329',
-//         url: '/product/184329',
-//     },
-//     {
-//         img: '/example.svg',
-//         rate: 4.5,
-//         title: 'MSI X344',
-//         price: 1.499,
-//         description: 'Intel Core i9-11900KF, 16GB DDR4, 512GB SSD, NVIDIA GeForce RTX 3060 Ti, 165W, 100% UEFI, 144Hz, 1080p',
-//         id: '184329',
-//         url: '/product/184329',
-//     },
-//     {
-//         img: '/example.svg',
-//         rate: 4.5,
-//         title: 'MSI X344',
-//         price: 1.499,
-//         description: 'Intel Core i9-11900KF, 16GB DDR4, 512GB SSD, NVIDIA GeForce RTX 3060 Ti, 165W, 100% UEFI, 144Hz, 1080p',
-//         id: '184329',
-//         url: '/product/184329',
-//     },
-//     {
-//         img: '/example.svg',
-//         rate: 4.5,
-//         title: 'MSI X344',
-//         price: 1.499,
-//         description: 'Intel Core i9-11900KF, 16GB DDR4, 512GB SSD, NVIDIA GeForce RTX 3060 Ti, 165W, 100% UEFI, 144Hz, 1080p',
-//         id: '184329',
-//         url: '/product/184329',
-//     },
-//     {
-//         img: '/example.svg',
-//         rate: 4.5,
-//         title: 'MSI X344',
-//         price: 1.499,
-//         description: 'Intel Core i9-11900KF, 16GB DDR4, 512GB SSD, NVIDIA GeForce RTX 3060 Ti, 165W, 100% UEFI, 144Hz, 1080p',
-//         id: '184329',
-//         url: '/product/184329',
-//     },
-// ]
 export default  function Home ()  {
 
     const [cards, setCards] = useState([])
@@ -63,7 +15,7 @@ export default  function Home ()  {
     useEffect(() => {
         const fetchData = async () => {
             try {
-                const response = await axios.get('http://localhost:8000/get_all');
+                const response = await axios.get('http://localhost:8000/products');
                 console.log(response.data);
                 // @ts-ignore
                 setCards(response.data);
