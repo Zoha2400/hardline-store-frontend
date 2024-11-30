@@ -7,17 +7,13 @@ import {useRouter} from "next/navigation";
 import Link from "next/link";
 
 interface FormData {
-    nickname: string;
     email: string;
     password: string;
-    confirmPassword: string;
 }
 
 interface FormErrors {
-    nickname?: string;
     email?: string;
     password?: string;
-    confirmPassword?: string;
 }
 
 function Page() {
@@ -28,10 +24,8 @@ function Page() {
 
 
     const [formData, setFormData] = useState<FormData>({
-        nickname: "",
         email: "",
-        password: "",
-        confirmPassword: "",
+        password: ""
     });
 
     const [errors, setErrors] = useState<FormErrors>({});
@@ -43,7 +37,6 @@ function Page() {
 
     const validate = (): FormErrors => {
         const newErrors: FormErrors = {};
-        if (!formData.nickname) newErrors.nickname = "Введите никнейм.";
         if (!formData.email) {
             newErrors.email = "Введите email.";
         } else if (!/\S+@\S+\.\S+/.test(formData.email)) {
@@ -52,8 +45,6 @@ function Page() {
         if (!formData.password) newErrors.password = "Введите пароль.";
         if (formData.password.length < 8)
             newErrors.password = "Пароль должен быть не менее 8 символов.";
-        if (formData.password !== formData.confirmPassword)
-            newErrors.confirmPassword = "Пароли не совпадают.";
         return newErrors;
     };
 
@@ -64,8 +55,7 @@ function Page() {
             setErrors(validationErrors);
         } else {
             setErrors({});
-            axios.post('http://localhost:8000/reg', {
-                username: formData.nickname,
+            axios.post('http://localhost:8000/login', {
                 email: formData.email,
                 password: formData.password,
             })
@@ -77,6 +67,7 @@ function Page() {
                         secure: process.env.NODE_ENV === "production",
                         sameSite: "strict",
                     });
+
 
                     const cookies = Cookies.get("token");
                     if(cookies) {
@@ -92,41 +83,21 @@ function Page() {
     };
 
     return (
-        <div className="flex justify-center items-center min-h-screen bg-gradient-to-r from-indigo-500 to-purple-600">
+        <div className="flex justify-center flex-col items-center min-h-screen bg-gradient-to-r from-indigo-500 to-purple-600">
+
             <Link href='/' className="absolute top-2 left-2 text-white font-mono text-sm bg-black p-3 rounded-lg hover:shadow-xl duration-300 ">
                 На главную
             </Link>
-
             <form
-                className="bg-white p-6 rounded-lg shadow-lg w-full max-w-md transition-all duration-500"
+                className="bg-white relative p-6 rounded-lg shadow-lg w-full max-w-md transition-all duration-500"
                 onSubmit={handleSubmit}
             >
-                <h2 className="text-3xl text-gray-800 font-bold mb-6 text-center">
-                    Регистрация
+
+
+                <h2 className="flex justify-center items-center gap-3 text-3xl text-gray-800 font-bold mb-6 text-center">
+                    Вход в аккаунт
                 </h2>
 
-                <div className="mb-4">
-                    <label
-                        htmlFor="nickname"
-                        className="block text-gray-700 font-medium mb-2 text-lg"
-                    >
-                        Nickname
-                    </label>
-                    <input
-                        type="text"
-                        id="nickname"
-                        name="nickname"
-                        value={formData.nickname}
-                        onChange={handleChange}
-                        className={`w-full text-black p-3 border-2 border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 transition-all duration-300 ${
-                            errors.nickname ? "border-red-500" : ""
-                        }`}
-                        placeholder="Введите никнейм"
-                    />
-                    {errors.nickname && (
-                        <p className="text-red-500 text-sm mt-1">{errors.nickname}</p>
-                    )}
-                </div>
 
                 <div className="mb-4">
                     <label
@@ -174,40 +145,17 @@ function Page() {
                     )}
                 </div>
 
-                <div className="mb-4">
-                    <label
-                        htmlFor="confirmPassword"
-                        className="block text-gray-700 font-medium mb-2 text-lg"
-                    >
-                        Повторите пароль
-                    </label>
-                    <input
-                        type="password"
-                        id="confirmPassword"
-                        name="confirmPassword"
-                        value={formData.confirmPassword}
-                        onChange={handleChange}
-                        className={`w-full text-black p-3 border-2 border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 transition-all duration-300 ${
-                            errors.confirmPassword ? "border-red-500" : ""
-                        }`}
-                        placeholder="Повторите пароль"
-                    />
-                    {errors.confirmPassword && (
-                        <p className="text-red-500 text-sm mt-1">
-                            {errors.confirmPassword}
-                        </p>
-                    )}
-                </div>
+
 
                 <button
                     type="submit"
                     className="w-full bg-gradient-to-r from-blue-500 to-indigo-600 text-white p-3 rounded-lg focus:ring-4 focus:ring-blue-300 transition-all duration-300"
                 >
-                    Зарегистрироваться
+                    Войти
                 </button>
 
-                <Link href="/auth/login" className="block mt-6 text-sm text-center text-gray-600 hover:text-gray-800">
-                    Уже есть аккаунт? Войти
+                <Link href="/auth/reg" className="block mt-6 text-sm text-center text-gray-600 hover:text-gray-800">
+                    Нет аккаунта? Создайте!
                 </Link>
             </form>
 

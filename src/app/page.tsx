@@ -5,13 +5,13 @@ import Dragon from "@/components/Header/Dragon";
 import Card from "@/components/Cards/Card";
 import SerachLine from "@/components/Cards/SerachLine";
 import Filter from "@/components/Cards/Filter";
+import Cookies from "js-cookie";
 
 import axios from 'axios';
 
 export default  function Home ()  {
 
     const [cards, setCards] = useState([])
-
     useEffect(() => {
         const fetchData = async () => {
             try {

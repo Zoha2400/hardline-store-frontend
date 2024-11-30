@@ -1,4 +1,4 @@
-import { cookies } from "next/headers";
+import Cookies from "js-cookie";
 import { makeObservable, action, observable } from "mobx";
 
 class CookieStore {
@@ -18,10 +18,9 @@ class CookieStore {
 
     async getCookie() {
         try {
-            const cookiesStore = await cookies();
-            const userCookie = cookiesStore.get('user');
-            this.setCookie(userCookie);
-            return userCookie;
+            const token = Cookies.get('token')
+            this.setCookie(token);
+            return token;
         } catch (error) {
             console.error("Error fetching cookie:", error);
             return null;

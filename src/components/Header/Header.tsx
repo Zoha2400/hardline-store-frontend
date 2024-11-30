@@ -1,13 +1,18 @@
-import React from 'react';
+import React, {useEffect} from 'react';
 import { Icon } from '@iconify/react';
 import Image from "next/image";
 import Link from 'next/link'
-import { usePathname } from 'next/navigation';
+import {usePathname, useRouter} from 'next/navigation';
+import Cookies from "js-cookie";
 
 function Header() {
     const pathname = usePathname();
 
     const isActive = pathname === '/profile';
+
+    const token = Cookies.get("token");
+    const router = useRouter()
+
 
     return (
         <header className="fixed top-0 z-20 left-0 bg-neutral-700 w-full h-24 border-b-1 border-b-white text-white">
@@ -48,7 +53,7 @@ function Header() {
                 <div className="flex items-center gap-2">
                     <Icon icon="material-symbols:search-rounded" width="22"/>
                     <Icon icon="material-symbols:shopping-cart" width="22"/>
-                    <Link href="/profile">
+                    <Link href={!token ? '/auth/reg' : '/profile'}>
                         <div
                             className={`profile p-2 rounded cursor-pointer overflow-hidden flex justify-center items-center ${
                                 isActive

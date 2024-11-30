@@ -7,16 +7,6 @@ import {Icon} from "@iconify/react";
 import React, {useEffect, useState} from "react";
 import axios from "axios";
 
-const fakeData = {
-        img: '/example.svg',
-        rate: 4.5,
-        title: 'MSI X344',
-        price: 1.499,
-        description: 'Intel Core i9-11900KF, 16GB DDR4, 512GB SSD, NVIDIA GeForce RTX 3060 Ti, 165W, 100% UEFI, 144Hz, 1080p, 1024, 1024',
-        shortInfo: "This is the game laptop for your life. This is the game laptop for your life. This is the game laptop for your life. This is the game laptop for your life. This is the game laptop for your life.",
-        id: '184329',
-        url: '/product/184329',
-    }
 
 function Page() {
     const { id } = useParams();
@@ -40,14 +30,22 @@ function Page() {
 
 
     return (
-        <div className="p-8 flex gap-5 justify-start">
-            <div className="w-1/3">
-                <Image src={card.img} alt={card.title}
-                       width={400} height={300} className="rounded-2xl w-full"/>
+        <div className="p-8 flex justify-center gap-5 justify-start ">
+            <div className="w-1/6">
+                {card?.img && (
+                    <Image
+                        src={card?.img}
+                        alt={card?.title || "Product Image"}
+                        width={400}
+                        height={300}
+                        className="rounded-2xl w-full"
+                    />
+                )}
             </div>
 
-            <div className="w-2/3 flex items-end h-fit relative  rounded-2xl">
+            <div className="w-4/6 flex  items-start h-fit relative  rounded-2xl">
                 <div className="flex flex-col">
+
                     <Breadcrumbs/>
 
                     <div className="w-4/6 flex flex-col gap-2">
