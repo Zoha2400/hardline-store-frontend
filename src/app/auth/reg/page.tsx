@@ -1,6 +1,9 @@
 "use client";
 
 import React, { useState } from "react";
+import Cookies from 'js-cookie'
+import axios from 'axios'
+import {useRouter} from "next/navigation";
 
 interface FormData {
     nickname: string;
@@ -17,6 +20,12 @@ interface FormErrors {
 }
 
 function Page() {
+    const token = Cookies.get('authToken');
+    console.log(token);
+
+    const router = useRouter();
+
+
     const [formData, setFormData] = useState<FormData>({
         nickname: "",
         email: "",
@@ -54,6 +63,29 @@ function Page() {
             setErrors(validationErrors);
         } else {
             setErrors({});
+            axios.post('http://localhost:8000/reg', {
+                username: formData.nickname,
+                email: formData.email,
+                password: formData.password,
+            })
+                .then(response => {
+                    console.log(response.data);
+                    // @ts-ignore
+                    Cookies.set("token", JSON.stringify(response.data.user), {
+                        expires: 1,
+                        secure: process.env.NODE_ENV === "production",
+                        sameSite: "strict",
+                    });
+
+                    const cookies = Cookies.get("token");
+                    if(cookies) {
+                        router.push('/');
+                    }
+                })
+                .catch(error => {
+                    console.error(error.response.data);
+                });
+
             console.log("Данные формы:", formData);
         }
     };
