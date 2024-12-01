@@ -23,7 +23,7 @@ function Filter() {
                             className="w-1/2 p-2 bg-neutral-700 rounded-lg text-sm"
                             placeholder="От"
                             value={priceRange[0]}
-                            onChange={(e) =>
+                            onChange={(e: any) =>
                                 setPriceRange([+e.target.value, priceRange[1]])
                             }
                         />
@@ -34,7 +34,7 @@ function Filter() {
                             className="w-1/2 p-2 bg-neutral-700 rounded-lg text-sm"
                             placeholder="До"
                             value={priceRange[1]}
-                            onChange={(e) =>
+                            onChange={(e: any) =>
                                 setPriceRange([priceRange[0], +e.target.value])
                             }
                         />
@@ -46,7 +46,7 @@ function Filter() {
                     <select
                         className="w-full p-2 bg-neutral-700 rounded-lg text-sm"
                         value={manufacturer}
-                        onChange={(e) => setManufacturer(e.target.value)}
+                        onChange={(e: any) => setManufacturer(e.target.value)}
                     >
                         <option value="">Все</option>
                         {manufacturers.map((brand) => (
@@ -62,7 +62,7 @@ function Filter() {
                     <select
                         className="w-full p-2 bg-neutral-700 rounded-lg text-sm"
                         value={sortOption}
-                        onChange={(e) => setSortOption(e.target.value)}
+                        onChange={(e: any) => setSortOption(e.target.value)}
                     >
                         <option value="popularity">По популярности</option>
                         <option value="priceAsc">По цене (возрастание)</option>

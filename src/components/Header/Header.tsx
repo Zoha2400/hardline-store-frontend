@@ -12,15 +12,13 @@ function Header() {
     const pathname = usePathname();
     const isActive = pathname === '/profile';
 
-    // Получение куки только на клиенте
     useEffect(() => {
         const emailCookie = Cookies.get("email");
-        setIsReg(emailCookie); // Сохраняем значение куки в стейт
-    }, []); // Эффект сработает только на клиенте
+        setIsReg(emailCookie);
+    }, []);
 
-    // Пока куки не загружены, можем вернуть null или загрузочный компонент
     if (isReg === undefined) {
-        return null; // Можно отобразить спиннер или просто вернуть null
+        return null;
     }
 
     const href = isReg ? '/profile' : '/auth/reg';
@@ -61,8 +59,6 @@ function Header() {
                 </nav>
 
                 <div className="flex items-center gap-2">
-                    <Icon icon="material-symbols:search-rounded" width="22" />
-                    <Icon icon="material-symbols:shopping-cart" width="22" />
                     <Link href={href}>
                         <div
                             className={`profile p-2 rounded cursor-pointer overflow-hidden flex justify-center items-center ${

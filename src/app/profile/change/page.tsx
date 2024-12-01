@@ -10,7 +10,7 @@ function EditProfilePage() {
         updatedAt: '2022-01-01',
     });
 
-    const handleChange = (e) => {
+    const handleChange = (e: any) => {
         const { name, value } = e.target;
         setProfile((prevProfile) => ({ ...prevProfile, [name]: value }));
     };
@@ -19,6 +19,8 @@ function EditProfilePage() {
         alert('Профиль обновлён!');
     };
 
+    // @ts-ignore
+    // @ts-ignore
     return (
         <div className="w-full h-screen flex justify-center items-center">
             <div className="w-full max-w-3xl mx-auto p-8 bg-neutral-800 text-gray-200 rounded-lg shadow-lg">
@@ -60,7 +62,7 @@ function EditProfilePage() {
                             value={profile.address}
                             onChange={handleChange}
                             className="w-full mt-1 p-3 bg-neutral-700 text-gray-200 rounded-lg border border-gray-600 focus:ring-2 focus:ring-teal-500 focus:outline-none"
-                            rows="3"
+                            rows={3}
                         ></textarea>
                     </div>
                     <div>
