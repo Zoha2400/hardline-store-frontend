@@ -7,11 +7,11 @@ import Profile from "@/components/Profile";
 import Cookies from "js-cookie";
 
 export default function Home() {
-    const token = Cookies.get("token");
+    const isReg = Cookies.get("email");
     const router = useRouter()
 
     useEffect(() => {
-        if(!token){
+        if(!isReg){
             router.push("/auth/reg")
         }
     }, [])

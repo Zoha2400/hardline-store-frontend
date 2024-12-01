@@ -1,28 +1,29 @@
-import { GetServerSideProps } from 'next';
+'use client'
 
-
+import { useEffect, useState } from 'react';
 import { Icon } from '@iconify/react';
-import Image from "next/image";
-import Link from 'next/link'
-import {usePathname, useRouter} from 'next/navigation';
-import Cookies from "js-cookie";
+import Image from 'next/image';
+import Link from 'next/link';
+import { usePathname } from 'next/navigation';
+import Cookies from 'js-cookie';
 
-
-export const getServerSideProps: GetServerSideProps = async () => {
-    const token = Cookies.get("token");
-    return {
-        props: { token },
-    };
-};
-
-function Header({ token }: { token: string | null }) {
+function Header() {
+    const [isReg, setIsReg] = useState<string | undefined>(undefined); // Стейт для значения из куки
     const pathname = usePathname();
-
     const isActive = pathname === '/profile';
 
-    const tokenn = Cookies.get("token");
-    const router = useRouter()
+    // Получение куки только на клиенте
+    useEffect(() => {
+        const emailCookie = Cookies.get("email");
+        setIsReg(emailCookie); // Сохраняем значение куки в стейт
+    }, []); // Эффект сработает только на клиенте
 
+    // Пока куки не загружены, можем вернуть null или загрузочный компонент
+    if (isReg === undefined) {
+        return null; // Можно отобразить спиннер или просто вернуть null
+    }
+
+    const href = isReg ? '/profile' : '/auth/reg';
 
     return (
         <header className="fixed top-0 z-20 left-0 bg-neutral-700 w-full h-24 border-b-1 border-b-white text-white">
@@ -37,33 +38,32 @@ function Header({ token }: { token: string | null }) {
                 <div className="flex items-center justify-center gap-3">
                     Call Us: (998) 91 777 88 66
                     <p className="flex justify-center gap-1">
-                        <Icon icon="line-md:facebook" width='20'/>
-                        <Icon icon="line-md:instagram" width='20'   />
+                        <Icon icon="line-md:facebook" width="20" />
+                        <Icon icon="line-md:instagram" width="20" />
                     </p>
                 </div>
             </section>
 
             <section className="flex h-16 justify-between items-center px-4">
                 <Link href="/">
-                    <div className="">
-                        <Image alt="main_icon" src="/logo.png" width={50} height={50}/>
+                    <div>
+                        <Image alt="main_icon" src="/logo.png" width={50} height={50} />
                     </div>
                 </Link>
 
-
                 <nav className="flex justify-between items-center gap-5 text-sm">
-                    <Link href='/' className="text-gray-300 hover:text-white">All Products</Link>
-                    <Link href='/laptops' className="text-gray-300 hover:text-white">Laptops</Link>
-                    <Link href='/pc' className="text-gray-300 hover:text-white">PC</Link>
-                    <Link href='/repairs' className="text-gray-300 hover:text-white">Repairs</Link>
-                    <Link href='/about' className="text-gray-300 hover:text-white">About Us</Link>
-                    <Link href='/contacts' className="text-gray-300 hover:text-white">Contacts</Link>
+                    <Link href="/" className="text-gray-300 hover:text-white">All Products</Link>
+                    <Link href="/laptops" className="text-gray-300 hover:text-white">Laptops</Link>
+                    <Link href="/pc" className="text-gray-300 hover:text-white">PC</Link>
+                    <Link href="/repairs" className="text-gray-300 hover:text-white">Repairs</Link>
+                    <Link href="/about" className="text-gray-300 hover:text-white">About Us</Link>
+                    <Link href="/contacts" className="text-gray-300 hover:text-white">Contacts</Link>
                 </nav>
 
                 <div className="flex items-center gap-2">
-                    <Icon icon="material-symbols:search-rounded" width="22"/>
-                    <Icon icon="material-symbols:shopping-cart" width="22"/>
-                    <Link href={!token ? '/auth/reg' : '/profile'}>
+                    <Icon icon="material-symbols:search-rounded" width="22" />
+                    <Icon icon="material-symbols:shopping-cart" width="22" />
+                    <Link href={href}>
                         <div
                             className={`profile p-2 rounded cursor-pointer overflow-hidden flex justify-center items-center ${
                                 isActive
@@ -76,8 +76,6 @@ function Header({ token }: { token: string | null }) {
                     </Link>
                 </div>
             </section>
-
-
         </header>
     );
 }
