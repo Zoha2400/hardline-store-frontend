@@ -8,12 +8,12 @@ import { usePathname } from 'next/navigation';
 import Cookies from 'js-cookie';
 
 function Header() {
-    const [isReg, setIsReg] = useState<string | undefined>(undefined); // Стейт для значения из куки
+    const [isReg, setIsReg] = useState<string | null>(null); // Стейт для значения из куки
     const pathname = usePathname();
     const isActive = pathname === '/profile';
 
     useEffect(() => {
-        const emailCookie = Cookies.get("email") || undefined;
+        const emailCookie = Cookies.get("email") || null;
         setIsReg(emailCookie);
     }, []);
 
