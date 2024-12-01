@@ -1,16 +1,26 @@
-import React, {useEffect} from 'react';
+import { GetServerSideProps } from 'next';
+
+
 import { Icon } from '@iconify/react';
 import Image from "next/image";
 import Link from 'next/link'
 import {usePathname, useRouter} from 'next/navigation';
 import Cookies from "js-cookie";
 
-function Header() {
+
+export const getServerSideProps: GetServerSideProps = async () => {
+    const token = Cookies.get("token");
+    return {
+        props: { token },
+    };
+};
+
+function Header({ token }: { token: string | null }) {
     const pathname = usePathname();
 
     const isActive = pathname === '/profile';
 
-    const token = Cookies.get("token");
+    const tokenn = Cookies.get("token");
     const router = useRouter()
 
 
