@@ -1,9 +1,8 @@
 "use client";
 
 import React, { useState } from "react";
-import Cookies from 'js-cookie'
-import axios from 'axios'
-import {useRouter} from "next/navigation";
+import axios from 'axios';
+import { useRouter } from "next/navigation";
 import Link from "next/link";
 
 interface FormData {
@@ -21,11 +20,7 @@ interface FormErrors {
 }
 
 function Page() {
-    const token = Cookies.get('authToken');
-    console.log(token);
-
     const router = useRouter();
-
 
     const [formData, setFormData] = useState<FormData>({
         nickname: "",
@@ -57,35 +52,26 @@ function Page() {
         return newErrors;
     };
 
-    const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+    const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault();
         const validationErrors = validate();
         if (Object.keys(validationErrors).length > 0) {
             setErrors(validationErrors);
         } else {
             setErrors({});
-            axios.post('http://localhost:8000/reg', {
-                username: formData.nickname,
-                email: formData.email,
-                password: formData.password,
-            })
-                .then(response => {
-                    console.log(response.data);
-                    // @ts-ignore
-                    Cookies.set("token", JSON.stringify(response.data.data), {
-                        expires: 1,
-                        secure: process.env.NODE_ENV === "production",
-                        sameSite: "strict",
-                    });
-
-                    const cookies = Cookies.get("token");
-                    if(cookies) {
-                        router.push('/');
-                    }
-                })
-                .catch(error => {
-                    console.error(error.response.data);
+            try {
+                const response = await axios.post('http://localhost:8000/reg', {
+                    username: formData.nickname,
+                    email: formData.email,
+                    password: formData.password,
                 });
+                console.log(response.data);
+
+                // После успешной регистрации, сервер сам установит cookie
+                router.push('/');  // Перенаправление после успешной регистрации
+            } catch (error: any) {
+                console.error(error.response?.data || error.message);
+            }
 
             console.log("Данные формы:", formData);
         }
@@ -210,8 +196,6 @@ function Page() {
                     Уже есть аккаунт? Войти
                 </Link>
             </form>
-
-
         </div>
     );
 }

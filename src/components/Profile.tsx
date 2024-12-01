@@ -1,5 +1,6 @@
 import React from 'react';
 import Link from "next/link";
+import axios from "axios";
 
 function Profile() {
     return (
@@ -41,6 +42,27 @@ function Profile() {
                         Редактировать
                     </button>
                 </Link>
+                <button
+                    className="px-6 py-3 bg-gradient-to-r from-indigo-600 to-blue-600 text-white font-semibold rounded-lg shadow-md hover:shadow-lg transform hover:scale-105 transition-transform"
+                    onClick={async () => {
+                        try {
+                            const response = await axios.delete('http://localhost:8000/logout', {withCredentials: true});
+
+                            if (response.status === 200) {
+                                // Успешный выход
+                                console.log("Выход успешен:", response.data);
+                                // Здесь можно сделать редирект или обновить состояние
+                                window.location.href = '/'; // Пример редиректа на главную страницу
+                            }
+                        } catch (error) {
+                            console.error('Ошибка при выходе:', error);
+                            alert('Произошла ошибка при выходе. Пожалуйста, попробуйте снова.');
+                        }
+                    }}
+                >
+                    Выйти
+                </button>
+
                 <button
                     className="px-6 py-3 bg-gradient-to-r from-red-600 to-pink-600 text-white font-semibold rounded-lg shadow-md hover:shadow-lg transform hover:scale-105 transition-transform">
                     Удалить

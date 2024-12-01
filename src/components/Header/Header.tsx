@@ -13,7 +13,7 @@ function Header() {
     const isActive = pathname === '/profile';
 
     useEffect(() => {
-        const emailCookie = Cookies.get("email");
+        const emailCookie = Cookies.get("email") || null;
         setIsReg(emailCookie);
     }, []);
 
