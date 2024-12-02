@@ -67,8 +67,7 @@ function Page() {
                 });
                 console.log(response.data);
 
-                // После успешной регистрации, сервер сам установит cookie
-                router.push('/');  // Перенаправление после успешной регистрации
+                router.push('/auth/login');
             } catch (error: any) {
                 console.error(error.response?.data || error.message);
             }

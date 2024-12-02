@@ -1,7 +1,8 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
 import { format } from 'date-fns';
-
+import Cookies from "js-cookie";
+import Link from "next/link";
 
 interface Comment {
     id: number;
@@ -15,6 +16,8 @@ const Comments = ({ id }: { id: string }) => {
     const [newComment, setNewComment] = useState<string>("");
     const [loading, setLoading] = useState<boolean>(false);
     const [error, setError] = useState<string>("");
+
+    const cookies = Cookies.get('email')
 
     useEffect(() => {
         const fetchComments = async () => {
@@ -87,7 +90,8 @@ const Comments = ({ id }: { id: string }) => {
                     ))}
                 </div>
 
-                <div className="add-comment mt-6">
+
+                {cookies ? (<div className="add-comment mt-6">
                     <textarea
                         value={newComment}
                         onChange={(e) => setNewComment(e.target.value)}
@@ -106,7 +110,10 @@ const Comments = ({ id }: { id: string }) => {
                     >
                         {loading ? "Posting..." : "Add Comment"}
                     </button>
-                </div>
+                </div>) : (
+                    <div className="w-full h-50 p-2 bg-neutral-700 rounded-xl"> <Link href='/auth/login' className="text-blue-400 underline">Войдите в аккаунт</Link>, чтобы писать комментарии. </div>
+                )}
+
             </div>
         </div>
     );
