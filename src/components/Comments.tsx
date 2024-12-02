@@ -34,26 +34,26 @@ const Comments = ({ id }: { id: string }) => {
 
 
     const addComment = async (username: string, comment_text: string) => {
-        const newCommentObj: Comment = {
-            id: comments.length + 1,
+        const newCommentObj = {
             username,
             comment_text,
-            created_at: new Date().toISOString(),
         };
 
         try {
             setLoading(true);
-            const response = await axios.post(
-                `http://localhost:8000/product/${id}/comments`,
+            const response: any = await axios.post(
+                `http://localhost:8000/add_comments/${id}`,
                 newCommentObj,
                 {
                     withCredentials: true,
                 }
             );
 
-            if (response.status === 201) {
-                setComments([newCommentObj, ...comments]);
-                setNewComment("");
+            if (response.status === 200) {
+                setComments(response.data.comments); // Обновляем список комментариев с сервера
+                setNewComment(""); // Очищаем текстовое поле
+            } else {
+                throw new Error("Failed to add comment");
             }
         } catch (error) {
             console.error("Error posting new comment:", error);
@@ -62,6 +62,7 @@ const Comments = ({ id }: { id: string }) => {
             setLoading(false);
         }
     };
+
 
     return (
         <div className="w-full flex my-5 justify-center">
