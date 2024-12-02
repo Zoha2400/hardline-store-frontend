@@ -84,7 +84,7 @@ function Cart() {
     useEffect(() => {
         const fetchCart = async () => {
             try {
-                const response = await axios.get('http://localhost:8000/get_cart'); // Ждём ответа от сервера
+                const response : any = await axios.get('http://localhost:8000/get_cart'); // Ждём ответа от сервера
                 setCart(response.data); // Устанавливаем данные в состояние
                 console.log(response.data); // Логируем данные
             } catch (error) {

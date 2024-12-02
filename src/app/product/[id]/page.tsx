@@ -28,6 +28,12 @@ function Page() {
         fetchData();
     }, []);
 
+    console.log({
+        email: 'test@gmail.com',
+        productId: card.product_uuid,
+        quantity: 1,
+    })
+
 
     return (
         <div className="p-8 flex justify-center gap-5 justify-start ">
@@ -81,9 +87,9 @@ function Page() {
                                 const response = await axios.put(
                                     'http://localhost:8000/addCart',
                                     {
-                                        email: 'test@gmail.com', // Укажите email пользователя
-                                        productId: 'product-uuid', // Замените на ID товара
-                                        quantity: 1, // Количество
+                                        email: 'test@gmail.com',
+                                        productId: card.product_uuid,
+                                        quantity: 1,
                                     },
                                     {
                                         withCredentials: true, // Включение передачи куков
