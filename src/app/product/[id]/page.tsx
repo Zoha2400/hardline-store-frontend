@@ -65,7 +65,7 @@ function Page() {
 
                         <div className="flex mt-8 items-center gap-4">
                             <p className=" text-2xl text-green-400 font-normal">${card.price}</p>
-                                <a href={card.url}
+                            <a href={card.url}
                                className=" w-fit h-fit bg-blue-500 text-white text-sm py-2 px-4 rounded-md">Buy
                                 Now</a></div>
 
@@ -76,6 +76,30 @@ function Page() {
                 </div>
                 <div className="w-1/4 h-96 flex flex-col gap-2">
                     <Icon
+                        onClick={async () => {
+                            try {
+                                const response = await axios.put(
+                                    'http://localhost:8000/addCart',
+                                    {
+                                        email: 'test@gmail.com', // Укажите email пользователя
+                                        productId: 'product-uuid', // Замените на ID товара
+                                        quantity: 1, // Количество
+                                    },
+                                    {
+                                        withCredentials: true, // Включение передачи куков
+                                    }
+                                );
+
+                                if (response.status === 200) {
+                                    alert('Товар добавлен в корзину');
+                                }
+                            } catch (error: any) {
+                                console.error('Ошибка при добавлении товара в корзину:', error);
+                                if (error.response) {
+                                    alert(`Ошибка: ${error.response.data.error}`);
+                                }
+                            }
+                        }}
                         icon="material-symbols:add-shopping-cart"
                         className="text-4xl hover:text-blue-500 transform transition-transform duration-300 hover:scale-125"
                     />
