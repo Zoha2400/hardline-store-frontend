@@ -8,7 +8,7 @@ function Card({data}: any) {
     return (
         <Link href={`/product/${data.product_id}`}>
             <div
-                className="w-64 h-100 bg-neutral-800 flex flex-col rounded-2xl overflow-hidden justify-center items-center hover:bg-neutral-700 cursor-pointer duration-200 group">
+                className="w-64 h-96 bg-neutral-800 flex flex-col rounded-2xl overflow-hidden justify-center items-center hover:bg-neutral-700 cursor-pointer duration-200 group">
                 <div className="overflow-hidden w-full">
                     <Image
                         alt="example product"

@@ -30,7 +30,7 @@ function Header() {
                     Mon-Thu: <span className="text-white">9:00 AM - 5:30 PM</span>
                 </p>
                 <p>
-                    Visit our showroom at TUIT Uzbekistan <a href='#' className="underline font-bold">Contact Us</a>
+                    Visit our showroom at TUIT Uzbekistan <Link href='/contacts' className="underline font-bold">Contact Us</Link>
                 </p>
 
                 <div className="flex items-center justify-center gap-3">
