@@ -6,12 +6,14 @@ import Breadcrumbs from "@/components/Header/Breadcrupms";
 import {Icon} from "@iconify/react";
 import React, {useEffect, useState} from "react";
 import axios from "axios";
+import Comments from "@/components/Comments";
 
 
 function Page() {
     const { id } = useParams();
 
     const [card, setCards] : any = useState([])
+    const [isCart, setIsCart] = useState([]);
 
     useEffect(() => {
         const fetchData = async () => {
@@ -24,7 +26,22 @@ function Page() {
                 console.error('Error fetching data:', error);
             }
         };
-
+        //
+        // const fetchCartData = async () => {
+        //     try {
+        //         const response = await axios.get(`http://localhost:8000/isCart/${id}`, {
+        //             withCredentials: true,
+        //         });
+        //         console.log(response.data);
+        //         // @ts-ignore
+        //         setIsCart(response.data);
+        //
+        //     }catch (error) {
+        //         console.error('Error fetching cart data:', error);
+        //     }
+        // }
+        //
+        // fetchCartData()
         fetchData();
     }, []);
 
@@ -36,6 +53,7 @@ function Page() {
 
 
     return (
+        <div>
         <div className="p-8 flex justify-center gap-5 justify-start ">
             <div className="w-1/6">
                 {card?.img && (
@@ -125,6 +143,10 @@ function Page() {
 
 
             </div>
+
+        </div>
+
+        <Comments id={id}/>
         </div>
     );
 }
