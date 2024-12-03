@@ -80,20 +80,20 @@ const cards = [
 
 
 function Cart() {
-    const [cart, setCart] = useState([{}])
-    useEffect(() => {
-        const fetchCart = async () => {
-            try {
-                const response : any = await axios.get('http://localhost:8000/get_cart'); // Ждём ответа от сервера
-                setCart(response.data); // Устанавливаем данные в состояние
-                console.log(response.data); // Логируем данные
-            } catch (error) {
-                console.error('Ошибка при получении данных корзины:', error);
-            }
-        };
-
-        fetchCart(); // Вызываем асинхронную функцию
-    }, []); // Пустой массив зависимостей, чтобы эффект выполнялся только один раз при монтировании компонента
+    // const [cart, setCart] = useState([{}])
+    // useEffect(() => {
+    //     const fetchCart = async () => {
+    //         try {
+    //             const response : any = await axios.get('http://localhost:8000/get_cart'); // Ждём ответа от сервера
+    //             setCart(response.data); // Устанавливаем данные в состояние
+    //             console.log(response.data); // Логируем данные
+    //         } catch (error) {
+    //             console.error('Ошибка при получении данных корзины:', error);
+    //         }
+    //     };
+    //
+    //     fetchCart(); // Вызываем асинхронную функцию
+    // }, []); // Пустой массив зависимостей, чтобы эффект выполнялся только один раз при монтировании компонента
 
     return (
         <div className="w-full h-auto max-w-5xl mx-auto p-8 bg-neutral-900 shadow-xl overflow-auto rounded-2xl text-gray-200">

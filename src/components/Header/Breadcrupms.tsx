@@ -13,7 +13,6 @@ export default function Breadcrumbs() {
                 <span>Home</span>
             ) : (
                 <div className="flex space-x-2">
-                    {/* Первая ссылка на Home */}
                     <Link href="/" className="text-blue-500 hover:underline">
                         Home
                     </Link>

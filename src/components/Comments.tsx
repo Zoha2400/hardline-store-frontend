@@ -53,8 +53,8 @@ const Comments = ({ id }: { id: string }) => {
             );
 
             if (response.status === 200) {
-                setComments(response.data.comments); // Обновляем список комментариев с сервера
-                setNewComment(""); // Очищаем текстовое поле
+                setComments(response.data.comments);
+                setNewComment("");
             } else {
                 throw new Error("Failed to add comment");
             }
