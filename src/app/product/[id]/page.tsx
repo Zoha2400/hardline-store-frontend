@@ -10,7 +10,7 @@ import Comments from "@/components/Comments";
 
 
 function Page() {
-    const { id } = useParams();
+    const { id } : {id:string} = useParams();
 
     const [card, setCards] : any = useState([])
     const [isCart, setIsCart] = useState([]);

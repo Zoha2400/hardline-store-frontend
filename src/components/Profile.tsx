@@ -33,7 +33,7 @@ function Profile() {
         }
 
         fetchData();
-    })
+    }, [])
 
     // @ts-ignore
     return (

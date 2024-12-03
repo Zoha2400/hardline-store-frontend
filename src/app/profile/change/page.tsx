@@ -1,14 +1,44 @@
 "use client"
 
-import React, { useState } from 'react';
+import React, {useEffect, useState} from 'react';
+import axios from "axios";
+import {useRouter} from "next/navigation";
+import {format} from "date-fns"
+
+interface ProfileData {
+    email: string;
+    phone: string;
+    address: string;
+    updated_at: string;
+}
 
 function EditProfilePage() {
-    const [profile, setProfile] = useState({
-        email: 'example@example.com',
-        phone: '(123) 456-7890',
-        address: '123 Main St, City, State, ZIP',
-        updatedAt: '2022-01-01',
+
+    const router = useRouter();
+
+    const [profile, setProfile] = useState<ProfileData>({
+        email: '',
+        phone: '',
+        address: '',
+        updated_at: '',
     });
+
+    useEffect(() => {
+        async function fetchData() {
+            try {
+                const response: any = await axios.get('http://localhost:8000/profile',
+                    {
+                        withCredentials: true,
+                    });
+                setProfile(response.data);
+                console.log(response.data);
+            } catch (error) {
+                console.error(error);
+            }
+        }
+
+        fetchData();
+    }, [])
 
     const handleChange = (e: any) => {
         const { name, value } = e.target;
@@ -34,7 +64,7 @@ function EditProfilePage() {
                             type="email"
                             id="email"
                             name="email"
-                            value={profile.email}
+                            value={profile?.email}
                             onChange={handleChange}
                             className="w-full mt-1 p-3 bg-neutral-700 text-gray-200 rounded-lg border border-gray-600 focus:ring-2 focus:ring-teal-500 focus:outline-none"
                         />
@@ -47,7 +77,7 @@ function EditProfilePage() {
                             type="text"
                             id="phone"
                             name="phone"
-                            value={profile.phone}
+                            value={profile?.phone}
                             onChange={handleChange}
                             className="w-full mt-1 p-3 bg-neutral-700 text-gray-200 rounded-lg border border-gray-600 focus:ring-2 focus:ring-teal-500 focus:outline-none"
                         />
@@ -59,7 +89,7 @@ function EditProfilePage() {
                         <textarea
                             id="address"
                             name="address"
-                            value={profile.address}
+                            value={profile?.address}
                             onChange={handleChange}
                             className="w-full mt-1 p-3 bg-neutral-700 text-gray-200 rounded-lg border border-gray-600 focus:ring-2 focus:ring-teal-500 focus:outline-none"
                             rows={3}
@@ -68,16 +98,18 @@ function EditProfilePage() {
                     <div>
                         <label className="block text-sm font-semibold text-gray-400">
                             Последнее обновление:
-                            <span className="text-gray-300 ml-2">{profile.updatedAt}</span>
+                            <span className="text-gray-300 ml-2">{format(new Date(profile.updated_at), 'MM-dd-yyyy hh:mm')}</span>
                         </label>
                     </div>
                     <div className="flex justify-end space-x-4">
                         <button
+                            onClick={() => {
+                                router.back()
+                            }}
                             type="button"
-                            onClick={() => alert('Изменения отменены!')}
                             className="px-6 py-2 bg-gray-600 text-gray-200 rounded-lg hover:bg-gray-700 transition"
                         >
-                            Отменить
+                            Назад
                         </button>
                         <button
                             type="button"
