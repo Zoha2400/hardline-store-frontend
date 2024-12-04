@@ -2,8 +2,9 @@
 
 import React, { useEffect, useState } from "react";
 import Link from "next/link";
-import axios from "axios";
+import axiosInstance from "@/axiosConfig";
 import { format } from "date-fns";
+import { useRouter } from "next/navigation";
 
 interface ProfileData {
   email: string;
@@ -14,24 +15,30 @@ interface ProfileData {
 
 function Profile() {
   const [profileData, setProfileData] = useState<ProfileData | null>(null);
+  const router = useRouter();
 
   useEffect(() => {
     async function fetchData() {
       try {
-        const response: any = await axios.get("http://localhost:8000/profile", {
-          withCredentials: true,
-        });
+        const response: any = await axiosInstance.get("profile");
         setProfileData(response.data);
-        console.log(response.data);
-      } catch (error) {
-        console.error(error);
+      } catch (error: any) {
+        if (error.response) {
+          // Ошибка с ответом от сервера
+          console.error("Ошибка при загрузке профиля:", error.response.data);
+        } else if (error.request) {
+          // Ошибка с запросом
+          console.error("Ошибка при отправке запроса:", error.request);
+        } else {
+          // Другие ошибки
+          console.error("Ошибка:", error.message);
+        }
       }
     }
 
     fetchData();
   }, []);
 
-  // @ts-ignore
   return (
     <div className="w-full max-w-2xl mx-auto p-8 bg-gradient-to-br from-gray-900 via-gray-800 to-black text-gray-200 rounded-xl shadow-2xl border border-gray-700">
       <h1 className="text-3xl font-extrabold mb-6 text-teal-400 tracking-wide">
@@ -49,18 +56,18 @@ function Profile() {
             )}
           </span>
         </div>
-        <p className="flex items-center">
-          <span className="w-32 text-gray-500">Телефон:</span>
-          <span className="text-lg font-semibold text-gray-200">
+        <span className="flex items-center">
+          <p className="w-32 text-gray-500">Телефон:</p>
+          <p className="text-lg font-semibold text-gray-200">
             {profileData?.phone ? profileData?.phone : "не указано"}
-          </span>
-        </p>
-        <p className="flex items-center">
-          <span className="w-32 text-gray-500">Адрес:</span>
-          <span className="text-lg font-semibold text-gray-200">
+          </p>
+        </span>
+        <span className="flex items-center">
+          <p className="w-32 text-gray-500">Адрес:</p>
+          <p className="text-lg font-semibold text-gray-200">
             {profileData?.address ? profileData?.address : "не указано"}
-          </span>
-        </p>
+          </p>
+        </span>
         <div className="flex items-center">
           <span className="w-32 text-gray-500">Обновлено:</span>
           <span className="text-lg flex font-semibold text-gray-200">
@@ -82,17 +89,14 @@ function Profile() {
           className="px-6 py-3 bg-gradient-to-r from-indigo-600 to-blue-600 text-white font-semibold rounded-lg shadow-md hover:shadow-lg transform hover:scale-105 transition-transform"
           onClick={async () => {
             try {
-              const response = await axios.delete(
-                "http://localhost:8000/logout",
-                { withCredentials: true },
-              );
+              const response = await axiosInstance.delete("logout");
 
               if (response.status === 200) {
                 console.log("Выход успешен:", response.data);
-                window.location.href = "/";
+                router.push("/");
               }
-            } catch (error) {
-              console.error("Ошибка при выходе:", error);
+            } catch (error: any) {
+              console.error("Ошибка при выходе:", error.message);
               alert(
                 "Произошла ошибка при выходе. Пожалуйста, попробуйте снова.",
               );

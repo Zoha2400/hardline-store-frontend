@@ -1,7 +1,7 @@
 "use client";
 
 import React, { useState } from "react";
-import axios from "axios";
+import axiosInstance from "@/axiosConfig";
 import { useRouter } from "next/navigation";
 import Link from "next/link";
 
@@ -56,7 +56,7 @@ function Page() {
     } else {
       setErrors({});
       try {
-        const response = await axios.post("http://localhost:8000/reg", {
+        const response = await axiosInstance.post("/reg", {
           email: formData.email,
           password: formData.password,
         });

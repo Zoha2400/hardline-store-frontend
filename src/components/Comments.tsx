@@ -1,8 +1,8 @@
 import React, { useState, useEffect } from "react";
-import axios from "axios";
 import { format } from "date-fns";
 import Cookies from "js-cookie";
 import Link from "next/link";
+import axiosInstance from "@/axiosConfig";
 
 interface Comment {
   id: number;
@@ -16,15 +16,16 @@ const Comments = ({ id }: { id: string }) => {
   const [newComment, setNewComment] = useState<string>("");
   const [loading, setLoading] = useState<boolean>(false);
   const [error, setError] = useState<string>("");
+  const [isMounted, setIsMounted] = useState(false);
 
-  const cookies = Cookies.get("email");
+  useEffect(() => {
+    setIsMounted(true);
+  }, []);
 
   useEffect(() => {
     const fetchComments = async () => {
       try {
-        const response: any = await axios.get(
-          `http://localhost:8000/comments/${id}`,
-        );
+        const response: any = await axiosInstance.get(`/comments/${id}`);
         setComments(response.data);
       } catch (error) {
         console.error("Error fetching comments:", error);
@@ -38,19 +39,13 @@ const Comments = ({ id }: { id: string }) => {
   }, [id]);
 
   const addComment = async (email: string, comment_text: string) => {
-    const newCommentObj = {
-      email,
-      comment_text,
-    };
+    const newCommentObj = { email, comment_text };
 
     try {
       setLoading(true);
-      const response: any = await axios.post(
-        `http://localhost:8000/add_comments/${id}`,
+      const response: any = await axiosInstance.post(
+        `/add_comments/${id}`,
         newCommentObj,
-        {
-          withCredentials: true,
-        },
       );
 
       if (response.status === 200) {
@@ -67,8 +62,12 @@ const Comments = ({ id }: { id: string }) => {
     }
   };
 
+  if (!isMounted) return null;
+
+  const cookies = Cookies.get("email");
+
   return (
-    <div className="w-full flex my-5 justify-center">
+    <div id="comments" className="w-full flex my-5 justify-center">
       <div className="w-11/12 comments-section bg-neutral-800 text-white p-6 rounded-xl">
         <h3 className="text-xl font-semibold text-gray-100">Comments</h3>
 
@@ -122,11 +121,10 @@ const Comments = ({ id }: { id: string }) => {
           </div>
         ) : (
           <div className="w-full h-50 p-2 bg-neutral-700 rounded-xl">
-            {" "}
             <Link href="/auth/login" className="text-blue-400 underline">
               Войдите в аккаунт
             </Link>
-            , чтобы писать комментарии.{" "}
+            , чтобы писать комментарии.
           </div>
         )}
       </div>

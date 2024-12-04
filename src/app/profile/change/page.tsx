@@ -1,7 +1,7 @@
 "use client";
 
 import React, { useEffect, useState } from "react";
-import axios from "axios";
+import axiosInstance from "@/axiosConfig";
 import { useRouter } from "next/navigation";
 import { format } from "date-fns";
 
@@ -27,11 +27,8 @@ function EditProfilePage() {
   useEffect(() => {
     async function fetchData() {
       try {
-        const response: any = await axios.get("http://localhost:8000/profile", {
-          withCredentials: true,
-        });
+        const response: any = await axiosInstance.get("profile");
         setProfile(response.data);
-        console.log(response.data);
       } catch (err) {
         console.error(err);
         setError("Не удалось загрузить профиль.");
@@ -54,16 +51,11 @@ function EditProfilePage() {
     setSuccess(false);
 
     try {
-      const response: any = await axios.put(
-        "http://localhost:8000/profile",
-        {
-          phone: profile.phone,
-          address: profile.address,
-        },
-        { withCredentials: true },
-      );
+      const response: any = await axiosInstance.put("profile", {
+        phone: profile.phone,
+        address: profile.address,
+      });
       setProfile(response.data);
-      console.log("Profile updated:", response.data);
       router.push("/profile");
     } catch (err) {
       console.error(err);
@@ -90,7 +82,7 @@ function EditProfilePage() {
               type="text"
               id="phone"
               name="phone"
-              value={profile.phone}
+              value={profile.phone || ""}
               onChange={handleChange}
               className="w-full mt-1 p-3 bg-neutral-700 text-gray-200 rounded-lg border border-gray-600 focus:ring-2 focus:ring-teal-500 focus:outline-none"
             />
@@ -105,7 +97,7 @@ function EditProfilePage() {
             <textarea
               id="address"
               name="address"
-              value={profile.address}
+              value={profile.address || ""}
               onChange={handleChange}
               className="w-full mt-1 p-3 bg-neutral-700 text-gray-200 rounded-lg border border-gray-600 focus:ring-2 focus:ring-teal-500 focus:outline-none"
               rows={3}
@@ -134,11 +126,7 @@ function EditProfilePage() {
             <button
               type="button"
               onClick={handleSave}
-              className={`px-6 py-2 ${
-                loading
-                  ? "bg-gray-400 cursor-not-allowed"
-                  : "bg-teal-500 hover:bg-teal-600"
-              } text-black font-semibold rounded-lg transition`}
+              className={`px-6 py-2 ${loading ? "bg-gray-400 cursor-not-allowed" : "bg-teal-500 hover:bg-teal-600"} text-black font-semibold rounded-lg transition`}
               disabled={loading}
             >
               {loading ? "Сохранение..." : "Сохранить"}
