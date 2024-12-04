@@ -6,7 +6,6 @@ import { useRouter } from "next/navigation";
 import { format } from "date-fns";
 
 interface ProfileData {
-  email: string;
   phone: string;
   address: string;
   updated_at: string;
@@ -16,11 +15,14 @@ function EditProfilePage() {
   const router = useRouter();
 
   const [profile, setProfile] = useState<ProfileData>({
-    email: "",
     phone: "",
     address: "",
     updated_at: "",
   });
+
+  const [loading, setLoading] = useState(false);
+  const [error, setError] = useState<string | null>(null);
+  const [success, setSuccess] = useState(false);
 
   useEffect(() => {
     async function fetchData() {
@@ -30,25 +32,46 @@ function EditProfilePage() {
         });
         setProfile(response.data);
         console.log(response.data);
-      } catch (error) {
-        console.error(error);
+      } catch (err) {
+        console.error(err);
+        setError("Не удалось загрузить профиль.");
       }
     }
 
     fetchData();
   }, []);
 
-  const handleChange = (e: any) => {
+  const handleChange = (
+    e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>,
+  ) => {
     const { name, value } = e.target;
     setProfile((prevProfile) => ({ ...prevProfile, [name]: value }));
   };
 
-  const handleSave = () => {
-    alert("Профиль обновлён!");
+  const handleSave = async () => {
+    setLoading(true);
+    setError(null);
+    setSuccess(false);
+
+    try {
+      const response: any = await axios.put(
+        "http://localhost:8000/profile",
+        {
+          phone: profile.phone,
+          address: profile.address,
+        },
+        { withCredentials: true },
+      );
+      setProfile(response.data);
+      console.log("Profile updated:", response.data);
+      router.push("/profile");
+    } catch (err) {
+      console.error(err);
+    } finally {
+      setLoading(false);
+    }
   };
 
-  // @ts-ignore
-  // @ts-ignore
   return (
     <div className="w-full h-screen flex justify-center items-center">
       <div className="w-full max-w-3xl mx-auto p-8 bg-neutral-800 text-gray-200 rounded-lg shadow-lg">
@@ -56,22 +79,6 @@ function EditProfilePage() {
           Редактировать профиль
         </h1>
         <form className="space-y-6">
-          <div>
-            <label
-              htmlFor="email"
-              className="block text-sm font-semibold text-gray-400"
-            >
-              Email
-            </label>
-            <input
-              type="email"
-              id="email"
-              name="email"
-              value={profile?.email}
-              onChange={handleChange}
-              className="w-full mt-1 p-3 bg-neutral-700 text-gray-200 rounded-lg border border-gray-600 focus:ring-2 focus:ring-teal-500 focus:outline-none"
-            />
-          </div>
           <div>
             <label
               htmlFor="phone"
@@ -83,7 +90,7 @@ function EditProfilePage() {
               type="text"
               id="phone"
               name="phone"
-              value={profile?.phone}
+              value={profile.phone}
               onChange={handleChange}
               className="w-full mt-1 p-3 bg-neutral-700 text-gray-200 rounded-lg border border-gray-600 focus:ring-2 focus:ring-teal-500 focus:outline-none"
             />
@@ -98,7 +105,7 @@ function EditProfilePage() {
             <textarea
               id="address"
               name="address"
-              value={profile?.address}
+              value={profile.address}
               onChange={handleChange}
               className="w-full mt-1 p-3 bg-neutral-700 text-gray-200 rounded-lg border border-gray-600 focus:ring-2 focus:ring-teal-500 focus:outline-none"
               rows={3}
@@ -118,9 +125,7 @@ function EditProfilePage() {
           </div>
           <div className="flex justify-end space-x-4">
             <button
-              onClick={() => {
-                router.back();
-              }}
+              onClick={() => router.back()}
               type="button"
               className="px-6 py-2 bg-gray-600 text-gray-200 rounded-lg hover:bg-gray-700 transition"
             >
@@ -129,12 +134,19 @@ function EditProfilePage() {
             <button
               type="button"
               onClick={handleSave}
-              className="px-6 py-2 bg-teal-500 text-black font-semibold rounded-lg hover:bg-teal-600 transition"
+              className={`px-6 py-2 ${
+                loading
+                  ? "bg-gray-400 cursor-not-allowed"
+                  : "bg-teal-500 hover:bg-teal-600"
+              } text-black font-semibold rounded-lg transition`}
+              disabled={loading}
             >
-              Сохранить
+              {loading ? "Сохранение..." : "Сохранить"}
             </button>
           </div>
         </form>
+        {error && <p className="mt-4 text-red-500">{error}</p>}
+        {success && <p className="mt-4 text-green-500">Изменения сохранены!</p>}
       </div>
     </div>
   );
