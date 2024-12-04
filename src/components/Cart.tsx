@@ -15,6 +15,7 @@ interface CartItem {
   product_uuid: string;
   quantity: number;
   rate: number;
+  product_id: number;
 }
 
 function Cart() {
@@ -25,6 +26,7 @@ function Cart() {
       try {
         const response: any = await axiosInstance.get("get_cart");
         setCart(response.data.cart);
+        console.log(response.data.cart);
       } catch (error) {
         console.error("Ошибка при получении данных корзины:", error);
       }
@@ -48,7 +50,7 @@ function Cart() {
   );
 
   return (
-    <div className="w-full h-fit max-w-5xl mx-auto p-8 bg-neutral-900 shadow-xl overflow-auto rounded-2xl text-gray-200">
+    <div className="w-full max-h-screen min-h-auto max-w-5xl mx-auto p-8 bg-neutral-900 shadow-xl overflow-auto rounded-2xl text-gray-200">
       <h1 className="text-3xl font-extrabold mb-6 text-teal-400">Корзина</h1>
       <div className="flex flex-col gap-6">
         {cart.map((card, key) => (
@@ -87,7 +89,7 @@ function Cart() {
                 Количество: {card.quantity}
               </p>
               <div className="flex gap-3">
-                <Link href={`/product/${card.cart_id}`}>
+                <Link href={`/product/${card.product_id}`}>
                   <button className="px-6 py-3 bg-gradient-to-r from-cyan-500 to-teal-500 text-black font-semibold rounded-lg shadow-md hover:shadow-lg transform hover:scale-105 transition-transform">
                     Просмотр
                   </button>
