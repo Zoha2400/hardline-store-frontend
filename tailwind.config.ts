@@ -8,9 +8,18 @@ export default {
   ],
   theme: {
     extend: {
+      keyframes: {
+        shimmer: {
+          '0%': { backgroundPosition: '-200% 0' },
+          '100%': { backgroundPosition: '200% 0' },
+        },
+      },
       colors: {
         background: "var(--background)",
         foreground: "var(--foreground)",
+      },
+      animation: {
+        shimmer: 'shimmer 1.5s infinite linear',
       },
     },
   },
