@@ -106,9 +106,16 @@ function Profile() {
           Выйти
         </button>
 
-        <button className="px-6 py-3 bg-gradient-to-r from-red-600 to-pink-600 text-white font-semibold rounded-lg shadow-md hover:shadow-lg transform hover:scale-105 transition-transform">
-          Удалить
-        </button>
+        {/*<button className="px-6 py-3 bg-gradient-to-r from-red-600 to-pink-600 text-white font-semibold rounded-lg shadow-md hover:shadow-lg transform hover:scale-105 transition-transform">*/}
+        {/*  Удалить*/}
+        {/*</button>*/}
+
+        <Link
+          href="/orders"
+          className="px-6 py-3 bg-gradient-to-r from-cyan-600 to-pink-600 text-white font-semibold rounded-lg shadow-md hover:shadow-lg transform hover:scale-105 transition-transform"
+        >
+          Заказы
+        </Link>
       </div>
     </div>
   );

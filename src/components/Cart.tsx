@@ -146,9 +146,12 @@ function Cart() {
               Добавьте продукты в корзину...
             </Link>
           ) : (
-            <button className="px-8 py-3 bg-blue-600 text-white text-lg font-bold rounded-lg hover:bg-blue-700 transition">
+            <Link
+              href="/payment"
+              className="px-8 py-3 bg-blue-600 text-white text-lg font-bold rounded-lg hover:bg-blue-700 transition"
+            >
               Перейти к оплате
-            </button>
+            </Link>
           )}
         </div>
       </div>
