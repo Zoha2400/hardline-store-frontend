@@ -7,7 +7,8 @@ import { Icon } from "@iconify/react";
 import React, { useEffect, useState } from "react";
 import axiosInstance from "@/axiosConfig";
 import Comments from "@/components/Comments";
-import Link from "next/link";
+import { toast, ToastContainer } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 function Page() {
   const { id }: { id: string } = useParams();
@@ -74,12 +75,45 @@ function Page() {
                 <p className="text-2xl text-green-400 font-normal">
                   ${card.price}
                 </p>
-                <a
-                  href={card.url}
-                  className="w-fit h-fit bg-blue-500 text-white text-sm py-2 px-4 rounded-md"
+                <p
+                  onClick={async () => {
+                    try {
+                      const response = await axiosInstance.put(
+                        "addCart",
+                        {
+                          email: "test@gmail.com",
+                          productId: card.product_uuid,
+                          quantity: 1,
+                        },
+                        {
+                          withCredentials: true,
+                        },
+                      );
+
+                      if (response.status === 200) {
+                        toast.success("Товар добавлен в корзину!", {
+                          position: "top-right",
+                          autoClose: 3000,
+                        });
+                      }
+                    } catch (error: any) {
+                      console.error(
+                        "Ошибка при добавлении товара в корзину:",
+                        error,
+                      );
+                      if (error.response) {
+                        toast.error(`Ошибка: ${error.response.data.error}`, {
+                          position: "top-right",
+                          autoClose: 3000,
+                        });
+                      }
+                    }
+                  }}
+                  className="flex items-center gap-3 w-fit h-fit bg-blue-500 text-white cursor-pointer hover:bg-indigo-500 duration-300 text-sm py-2 px-4 rounded-md"
                 >
-                  Buy Now
-                </a>
+                  Купить Сейчас{" "}
+                  <Icon icon="material-symbols:add-shopping-cart" />
+                </p>
               </div>
 
               <p className="mt-5">
@@ -91,37 +125,6 @@ function Page() {
             </div>
           </div>
           <div className="w-1/4 h-96 flex flex-col gap-2">
-            <Icon
-              onClick={async () => {
-                try {
-                  const response = await axiosInstance.put(
-                    "addCart",
-                    {
-                      email: "test@gmail.com",
-                      productId: card.product_uuid,
-                      quantity: 1,
-                    },
-                    {
-                      withCredentials: true, // Включение передачи куков
-                    },
-                  );
-
-                  if (response.status === 200) {
-                    alert("Товар добавлен в корзину");
-                  }
-                } catch (error: any) {
-                  console.error(
-                    "Ошибка при добавлении товара в корзину:",
-                    error,
-                  );
-                  if (error.response) {
-                    alert(`Ошибка: ${error.response.data.error}`);
-                  }
-                }
-              }}
-              icon="material-symbols:add-shopping-cart"
-              className="text-4xl hover:text-blue-500 transform transition-transform duration-300 hover:scale-125"
-            />
             <a href="#comments">
               <Icon
                 icon="material-symbols:sms"
@@ -132,6 +135,7 @@ function Page() {
         </div>
       </div>
 
+      <ToastContainer />
       <Comments id={id} />
     </div>
   );
