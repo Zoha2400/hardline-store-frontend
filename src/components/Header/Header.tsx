@@ -35,7 +35,6 @@ function Header() {
         <div className="flex items-center justify-center gap-3">
           Call Us: (998) 91 777 88 66
           <p className="flex justify-center gap-1">
-            <Icon icon="line-md:facebook" width="20" />
             <Icon icon="line-md:instagram" width="20" />
           </p>
         </div>
