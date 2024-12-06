@@ -68,7 +68,7 @@ function Orders() {
     <div className="p-6">
       <div className="w-full max-w-4xl mx-auto p-6 bg-neutral-800 text-white rounded-xl shadow-xl">
         <h2 className="text-4xl font-extrabold mb-6 text-neutral-200">
-          Your Orders
+          Ваши Заказы
         </h2>
         <ul className="space-y-6">
           {orders.map((order, index) => (
