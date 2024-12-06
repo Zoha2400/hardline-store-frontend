@@ -1,11 +1,30 @@
-import React from 'react';
+import React from "react";
+import { observer } from "mobx-react";
+import { Icon } from "@iconify/react";
+import { searchStore } from "@/store/Store";
 
-function SerachLine() {
-    return (
-        <div className="w-full flex justify-end">
-            <input className="p-2 text-xs bg-neutral-700 focus:bg-neutral-600 focus:outline-none duration-300 rounded-xl" type="text" placeholder="Search your device..."/>
-        </div>
-    );
+function SearchLine() {
+  const handleSearchToggle = () => {
+    searchStore.setActive();
+  };
+
+  return (
+    <div className="w-full flex justify-end">
+      <div
+        className="bg-indigo-500 px-3 p-2 hover:bg-indigo-600 duration-300 cursor-pointer font-black text-sm rounded-3xl w-fit flex gap-1 items-center justify-center"
+        onClick={handleSearchToggle}
+      >
+        <input
+          type="text"
+          onChange={(e: any) => {
+            searchStore.setText(e.target.value);
+          }}
+          className="text-white bg-transparent border-none outline-none"
+        />
+        <Icon icon="material-symbols-light:search-rounded" />
+      </div>
+    </div>
+  );
 }
 
-export default SerachLine;
+export default observer(SearchLine);

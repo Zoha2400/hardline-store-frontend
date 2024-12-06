@@ -1,26 +1,30 @@
 "use client";
 
 import { useEffect, useState } from "react";
+import { autorun } from "mobx";
 import Dragon from "@/components/Header/Dragon";
 import Card from "@/components/Cards/Card";
-import SerachLine from "@/components/Cards/SerachLine";
+import SearchLine from "@/components/Cards/SerachLine";
 import Filter from "@/components/Cards/Filter";
 import axiosInstance from "@/axiosConfig";
+import { searchStore } from "@/store/Store";
 
 export default function Home() {
   const [cards, setCards] = useState([]);
 
   useEffect(() => {
-    const fetchData = async () => {
+    const disposer = autorun(async () => {
       try {
-        const response: any = await axiosInstance.get("products");
+        const response: any = await axiosInstance.get(
+          `products/${searchStore.searchText || ""}`,
+        );
         setCards(response.data);
       } catch (error) {
         console.error("Error fetching data:", error);
       }
-    };
+    });
 
-    fetchData();
+    return () => disposer(); // Удаляем подписку
   }, []);
 
   return (
@@ -28,10 +32,9 @@ export default function Home() {
       <div className="w-11/12">
         <Dragon />
 
-        <SerachLine />
+        <SearchLine />
 
         <div className="items my-3 h-fit flex flex-col md:flex-row gap-4 justify-between">
-          {/* Фильтр */}
           <div className="w-full flex justify-center md:w-1/4 lg:w-1/5">
             <Filter />
           </div>
