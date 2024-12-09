@@ -60,7 +60,7 @@ const AddProductPage = () => {
 
   return (
     <div className="-mt-4 -mb-5 min-h-screen bg-neutral-900 text-neutral-100 flex items-center justify-center px-4 sm:px-6 lg:px-8">
-      <div className=" mt-5 w-full max-w-3xl bg-neutral-800 rounded-3xl shadow-2xl p-8 sm:p-12">
+      <div className="mt-5 w-full max-w-3xl bg-neutral-800 rounded-3xl shadow-2xl p-8 sm:p-12">
         <h1 className="text-4xl font-bold mb-8 text-center text-neutral-100">
           Добавить продукт
         </h1>
