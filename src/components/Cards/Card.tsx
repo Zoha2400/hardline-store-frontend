@@ -12,8 +12,8 @@ function Card({ data }: any) {
             alt="example product"
             src={`${data.img}`}
             className="w-full transform group-hover:scale-110 transition-transform duration-300"
-            width={40}
-            height={80}
+            width={400}
+            height={300}
             quality={100}
           />
         </div>

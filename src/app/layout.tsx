@@ -15,18 +15,6 @@ const pagesWithoutLayout = [
   "redirect",
 ];
 
-const pagesWithRegistration = [
-  "admin",
-  "admin/users",
-  "admin/roles",
-  "admin/permissions",
-  "admin/logs",
-  "admin/settings",
-  "profile",
-  "profile/change",
-  "orders",
-];
-
 export default function RootLayout({
   children,
 }: {

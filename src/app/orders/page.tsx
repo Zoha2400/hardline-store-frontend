@@ -3,6 +3,7 @@
 import { useEffect, useState } from "react";
 import axios from "axios";
 import Cookies from "js-cookie";
+import Link from "next/link";
 
 interface Product {
   img: string;
@@ -55,10 +56,16 @@ function Orders() {
 
   if (!orders.length) {
     return (
-      <div className="flex justify-center items-center min-h-screen bg-neutral-900">
+      <div className="flex justify-center -mt-4 -mb-5 items-center min-h-screen bg-neutral-900">
         <div className="text-center p-8 bg-neutral-800 text-white rounded-lg shadow-lg w-full max-w-sm">
-          <h2 className="text-2xl font-semibold mb-4">Orders</h2>
-          <p>No orders found.</p>
+          <h2 className="text-3xl font-semibold mb-4">Заказы</h2>
+          <p>Не найдено заказов</p>
+          <Link
+            href="/redirect/profile"
+            className="font-thin p-2 mt-2 bg-indigo-700 block rounded-3xl hover:bg-indigo-800"
+          >
+            Перейти к профилю и офорить предметы, которые у вас
+          </Link>
         </div>
       </div>
     );

@@ -9,14 +9,17 @@ import axiosInstance from "@/axiosConfig";
 import Comments from "@/components/Comments";
 import { toast, ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+import Cookies from "js-cookie";
 
 function Page() {
   const { id }: { id: string } = useParams();
 
   const [card, setCards]: any = useState([]);
-  const [isCart, setIsCart] = useState([]);
+  const [email, setEmail]: any = useState("");
 
   useEffect(() => {
+    const cookiesEmail = Cookies.get("email");
+    setEmail(cookiesEmail);
     const fetchData = async () => {
       try {
         const response = await axiosInstance.get(`product/${id}`);
@@ -27,12 +30,6 @@ function Page() {
     };
     fetchData();
   }, []);
-
-  console.log({
-    email: "test@gmail.com",
-    productId: card.product_uuid,
-    quantity: 1,
-  });
 
   return (
     <div>
@@ -81,7 +78,7 @@ function Page() {
                       const response = await axiosInstance.put(
                         "addCart",
                         {
-                          email: "test@gmail.com",
+                          email: email,
                           productId: card.product_uuid,
                           quantity: 1,
                         },

@@ -9,6 +9,8 @@ interface Comment {
   email: string;
   comment_text: string;
   created_at: string;
+  role: string;
+  color: string;
 }
 
 const Comments = ({ id }: { id: string }) => {
@@ -38,6 +40,7 @@ const Comments = ({ id }: { id: string }) => {
     }
   }, [id]);
 
+  console.log(comments);
   const addComment = async (email: string, comment_text: string) => {
     const newCommentObj = { email, comment_text };
 
@@ -81,10 +84,22 @@ const Comments = ({ id }: { id: string }) => {
             >
               <div className="flex justify-between">
                 <div className="flex items-center gap-2">
-                  <div className="w-10 h-10 bg-red-900 flex justify-center items-center rounded-full text-2xl font-black">
+                  <div
+                    className={`w-10 h-10 flex justify-center items-center rounded-full text-2xl font-black`}
+                    style={{
+                      backgroundColor: comment.color,
+                    }}
+                  >
                     {comment.email[0].toUpperCase()}
                   </div>
                   <p className="font-bold text-gray-200">{comment.email}</p>
+                  {comment.role === "admin" ? (
+                    <p className="font-normal text-xs bg-gradient-to-br from-violet-500 to-red-500 p-1 px-2 rounded-2xl text-gray-200">
+                      {comment.role}
+                    </p>
+                  ) : (
+                    ""
+                  )}
                 </div>
                 <p className="text-xs text-gray-400">
                   {format(
