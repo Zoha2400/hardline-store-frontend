@@ -1,9 +1,11 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import React, { useEffect, useState } from "react";
 import axios from "axios";
 import Cookies from "js-cookie";
 import Link from "next/link";
+import { toast, ToastContainer } from "react-toastify";
+import { useRouter } from "next/navigation";
 
 interface CartItem {
   product_name: string;
@@ -18,6 +20,7 @@ const PaymentPage = () => {
   const [cardNumber, setCardNumber] = useState<string>("");
   const [email, setEmail] = useState<string>("");
 
+  const router = useRouter();
   useEffect(() => {
     setEmail(Cookies.get("email") || "");
   }, []);
@@ -53,8 +56,19 @@ const PaymentPage = () => {
   }, []);
 
   const handlePayment = async () => {
+    if (cartItems.length === 0) {
+      toast.info("Корзина пустая...", {
+        position: "top-right",
+        autoClose: 3000,
+      });
+      return;
+    }
+
     if (!/^\d{16}$/.test(cardNumber)) {
-      alert("Номер карты должен быть 16 цифр.");
+      toast.error("Номер карты должен быть 16 цифр.", {
+        position: "top-right",
+        autoClose: 3000,
+      });
       return;
     }
 
@@ -70,7 +84,11 @@ const PaymentPage = () => {
       );
 
       if (response.status === 200) {
-        alert("Оплата прошла успешно!");
+        toast.success("Товар добавлен в корзину!", {
+          position: "top-right",
+          autoClose: 3000,
+        });
+        router.push("/profile");
       } else {
         alert("Ошибка при оформлении заказа");
       }
@@ -141,13 +159,22 @@ const PaymentPage = () => {
             placeholder="Введите номер карты"
           />
         </div>
-        <button
-          onClick={handlePayment}
-          className="w-full mt-6 py-3 px-4 bg-blue-600 text-white font-semibold rounded-md hover:bg-blue-500 transition duration-200"
-        >
-          Оплатить
-        </button>
+        {cartItems.length != 0 ? (
+          <button
+            onClick={handlePayment}
+            className="w-full mt-6 py-3 px-4 bg-blue-600 text-white font-semibold rounded-md hover:bg-blue-500 transition duration-200"
+          >
+            Оплатить
+          </button>
+        ) : (
+          <Link href="/redirect/home">
+            <button className="w-full mt-6 py-3 px-4 bg-indigo-700 text-white font-semibold rounded-md hover:bg-blue-500 transition duration-200">
+              Пополнить корзину.
+            </button>
+          </Link>
+        )}
       </div>
+      <ToastContainer />
     </div>
   );
 };

@@ -1,10 +1,11 @@
 "use client";
 
 import Link from "next/link";
-import { useEffect, useState } from "react";
+import React, { useEffect, useState } from "react";
 import axiosInstance from "@/axiosConfig";
 import axios from "axios";
 import Cookies from "js-cookie";
+import { ToastContainer } from "react-toastify";
 
 interface CartItem {
   cart_id: number;
@@ -147,7 +148,7 @@ function Cart() {
             </Link>
           ) : (
             <Link
-              href="/payment"
+              href="/redirect/payment"
               className="px-8 py-3 bg-blue-600 text-white text-lg font-bold rounded-lg hover:bg-blue-700 transition"
             >
               Перейти к оплате

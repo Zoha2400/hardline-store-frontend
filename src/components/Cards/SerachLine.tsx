@@ -22,7 +22,10 @@ function SearchLine() {
           className="text-white placeholder:text-white bg-transparent p-2 w-full h-full border-none outline-none"
           placeholder="Поиск..."
         />
-        <Icon icon="material-symbols-light:search-rounded" />
+        <Icon
+          icon="material-symbols-light:search-rounded"
+          className="font-black text-3xl"
+        />
       </div>
     </div>
   );

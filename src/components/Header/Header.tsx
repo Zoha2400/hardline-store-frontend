@@ -74,16 +74,16 @@ function Header() {
 
         <nav className="flex justify-between items-center gap-5 text-sm">
           <Link href="/" className="text-gray-300 hover:text-white">
-            Products
+            Продукты
           </Link>
           <Link href="/repairs" className="text-gray-300 hover:text-white">
-            Repairs
+            Починка
           </Link>
           <Link href="/about" className="text-gray-300 hover:text-white">
-            About Us
+            Про нас
           </Link>
           <Link href="/contacts" className="text-gray-300 hover:text-white">
-            Contacts
+            Контакты
           </Link>
         </nav>
 

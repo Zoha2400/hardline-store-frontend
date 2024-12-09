@@ -56,7 +56,7 @@ function EditProfilePage() {
         address: profile.address,
       });
       setProfile(response.data);
-      router.push("/profile");
+      router.push("/redirect/profile");
     } catch (err) {
       console.error(err);
     } finally {

@@ -34,6 +34,8 @@ export default function RedirectPage() {
         router.replace(`/auth/${redirectRoute}`);
       } else if (redirectRoute === "change") {
         router.replace(`/profile/${redirectRoute}`);
+      } else if (redirectRoute === "home") {
+        router.replace(`/`);
       } else {
         router.replace(`/${redirectRoute}`);
       }
