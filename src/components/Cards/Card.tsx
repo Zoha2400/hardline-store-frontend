@@ -10,10 +10,11 @@ function Card({ data }: any) {
         <div className="overflow-hidden w-full">
           <Image
             alt="example product"
-            src={data.img}
+            src={`${data.img}`}
             className="w-full transform group-hover:scale-110 transition-transform duration-300"
             width={40}
             height={80}
+            quality={100}
           />
         </div>
 

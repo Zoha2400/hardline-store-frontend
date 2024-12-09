@@ -24,7 +24,7 @@ export default function Home() {
       }
     });
 
-    return () => disposer(); // Удаляем подписку
+    return () => disposer();
   }, []);
 
   return (
