@@ -6,22 +6,47 @@ import Image from "next/image";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import Cookies from "js-cookie";
+import axios from "axios";
 
 function Header() {
-  const [isReg, setIsReg] = useState<string | null>(null); // Стейт для значения из куки
+  const [isReg, setIsReg] = useState<string | null>(""); // State for the cookie value
+  const [role, setRole] = useState<string | null>(null); // State for user role
   const pathname = usePathname();
   const isActive = pathname === "/profile";
 
   useEffect(() => {
-    const emailCookie = Cookies.get("email") || null;
+    const emailCookie = Cookies.get("email") || "";
     setIsReg(emailCookie);
+
+    async function fetchUserRole() {
+      try {
+        const response: any = await axios.get("http://localhost:8000/isAdmin", {
+          params: { email: emailCookie || "notEmail" },
+          headers: {
+            "Content-Type": "application/json",
+          },
+        });
+        if (response.status === 401) {
+          setIsReg(null);
+          setRole(null);
+          return;
+        }
+        setRole(response.data.role);
+      } catch (error) {
+        console.error("Error fetching user role:", error);
+      }
+    }
+
+    fetchUserRole();
   }, []);
 
-  if (isReg === undefined) {
+  if (isReg === undefined || role === undefined) {
     return null;
   }
 
-  const href = isReg ? "/profile" : "/auth/reg";
+  const href = isReg ? "/redirect/profile" : "/redirect/reg";
+  const adminHref = role === "admin" ? "/redirect/admin" : null;
+  const buttonText = isReg ? "Profile" : "Registration";
 
   return (
     <header className="fixed top-0 z-20 left-0 bg-neutral-700 w-full h-24 border-b-1 border-b-white text-white">
@@ -63,15 +88,22 @@ function Header() {
         </nav>
 
         <div className="flex items-center gap-2">
+          {adminHref && (
+            <Link href={adminHref}>
+              <div className="p-2 rounded cursor-pointer overflow-hidden flex justify-center items-center bg-gray-300 text-black hover:bg-red-600 hover:text-white">
+                Admin
+              </div>
+            </Link>
+          )}
           <Link href={href}>
             <div
               className={`profile p-2 rounded cursor-pointer overflow-hidden flex justify-center items-center ${
                 isActive
-                  ? "bg-blue-600 text-white" // Активный стиль
-                  : "bg-gray-300 text-black hover:bg-blue-600 hover:text-white" // Обычный стиль
+                  ? "bg-blue-600 text-white"
+                  : "bg-gray-300 text-black hover:bg-blue-600 hover:text-white"
               }`}
             >
-              Profile
+              {buttonText} {/* Use the conditional button text */}
             </div>
           </Link>
         </div>

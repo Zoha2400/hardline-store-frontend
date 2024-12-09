@@ -5,7 +5,6 @@ import { useRouter } from "next/navigation";
 import Cart from "@/components/Cart";
 import Profile from "@/components/Profile";
 import Cookies from "js-cookie";
-import Orders from "@/components/orders";
 
 export default function Home() {
   const isReg = Cookies.get("email");

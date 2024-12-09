@@ -24,13 +24,10 @@ function Profile() {
         setProfileData(response.data);
       } catch (error: any) {
         if (error.response) {
-          // Ошибка с ответом от сервера
           console.error("Ошибка при загрузке профиля:", error.response.data);
         } else if (error.request) {
-          // Ошибка с запросом
           console.error("Ошибка при отправке запроса:", error.request);
         } else {
-          // Другие ошибки
           console.error("Ошибка:", error.message);
         }
       }
@@ -80,7 +77,7 @@ function Profile() {
         </div>
       </div>
       <div className="flex justify-between items-center gap-4 mt-6">
-        <Link href="/profile/change">
+        <Link href="/redirect/change">
           <button className="px-6 py-3 bg-gradient-to-r from-cyan-500 to-teal-500 text-black font-semibold rounded-lg shadow-md hover:shadow-lg transform hover:scale-105 transition-transform">
             Редактировать
           </button>
@@ -111,7 +108,7 @@ function Profile() {
         {/*</button>*/}
 
         <Link
-          href="/orders"
+          href="/redirect/orders"
           className="px-6 py-3 bg-gradient-to-r from-cyan-600 to-pink-600 text-white font-semibold rounded-lg shadow-md hover:shadow-lg transform hover:scale-105 transition-transform"
         >
           Заказы
