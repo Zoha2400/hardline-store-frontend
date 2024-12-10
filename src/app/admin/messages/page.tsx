@@ -161,12 +161,6 @@ export default function MessagesList() {
               <p className="text-gray-300 mb-2">
                 <strong>Сообщение:</strong> {selectedMessage.message}
               </p>
-              <button
-                onClick={() => deleteMessage(selectedMessage.id)}
-                className="px-3 py-1 bg-red-600 text-white rounded hover:bg-red-700 transition"
-              >
-                Удалить
-              </button>
             </div>
           </div>
         )}

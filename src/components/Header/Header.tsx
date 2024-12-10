@@ -38,7 +38,7 @@ function Header() {
     }
 
     fetchUserRole();
-  }, []);
+  }, [isActive]);
 
   if (isReg === undefined || role === undefined) {
     return null;
