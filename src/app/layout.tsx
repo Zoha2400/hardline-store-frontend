@@ -45,7 +45,7 @@ export default function RootLayout({
     ) {
       router.replace("/auth/reg");
     }
-  }, []);
+  }, [pathname, email, router]);
 
   const shouldUseLayout = !pagesWithoutLayout.some((page) =>
     pathname.includes(page),

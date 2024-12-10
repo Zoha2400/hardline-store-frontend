@@ -16,20 +16,54 @@ function Page() {
 
   const [card, setCards]: any = useState([]);
   const [email, setEmail]: any = useState("");
+  const [rating, setRating] = useState(0);
 
   useEffect(() => {
     const cookiesEmail = Cookies.get("email");
     setEmail(cookiesEmail);
     const fetchData = async () => {
       try {
-        const response = await axiosInstance.get(`product/${id}`);
+        const response: any = await axiosInstance.get(`product/${id}`);
         setCards(response.data);
+        setRating(response.data.rate);
       } catch (error) {
         console.error("Error fetching data:", error);
       }
     };
     fetchData();
   }, []);
+
+  const handleRating = async (rate: number) => {
+    try {
+      const response = await axiosInstance.post(
+        "/rateProduct",
+        {
+          productId: card.product_uuid,
+          rating: rate,
+          email: email,
+        },
+        {
+          withCredentials: true,
+        },
+      );
+
+      if (response.status === 200) {
+        setRating(rate);
+        toast.success("Рейтинг обновлен!", {
+          position: "top-right",
+          autoClose: 3000,
+        });
+      }
+    } catch (error: any) {
+      console.error("Error submitting rating:", error);
+      if (error.response) {
+        toast.error(`Ошибка: ${error.response.data.error}`, {
+          position: "top-right",
+          autoClose: 3000,
+        });
+      }
+    }
+  };
 
   return (
     <div>
@@ -57,15 +91,19 @@ function Page() {
               <p className="text text-white">{card.product_description}</p>
               <p className="text font-bold text-white">{card.shortInfo}</p>
               <div className="w-full mt-2 rating flex text-yellow-400">
-                <Icon icon="material-symbols:kid-star" />
-                <Icon icon="material-symbols:kid-star" />
-                <Icon icon="material-symbols:kid-star" />
-                <Icon icon="material-symbols:kid-star" />
-                <Icon icon="material-symbols:kid-star-outline" />
-
-                <p className="text-xs px-2 text-gray-400">
-                  {card.rate} out of 5
-                </p>
+                {[1, 2, 3, 4, 5].map((i) => (
+                  <Icon
+                    key={i}
+                    icon={
+                      i <= rating
+                        ? "material-symbols:kid-star"
+                        : "material-symbols:kid-star-outline"
+                    }
+                    onClick={() => handleRating(i)}
+                    className="cursor-pointer hover:scale-110 transition-transform duration-300"
+                  />
+                ))}
+                <p className="text-xs px-2 text-gray-400">{rating} из 5</p>
               </div>
 
               <div className="flex mt-8 items-center gap-4">
