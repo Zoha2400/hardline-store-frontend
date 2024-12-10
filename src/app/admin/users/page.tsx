@@ -38,7 +38,7 @@ export default function UsersPage() {
   }, []);
 
   return (
-    <main className="min-h-screen -mb-5 -mt-4 bg-gradient-to-b from-black to-gray-900 text-white flex flex-col items-center p-6">
+    <main className="min-h-screen -mb-5 -mt-4 bg-transparent text-white flex flex-col items-center p-6">
       <header className="mb-12 text-center">
         <h1 className="text-5xl font-extrabold tracking-tight mb-4">
           Пользователи
@@ -50,8 +50,8 @@ export default function UsersPage() {
 
       <section className="w-full max-w-6xl mb-12">
         <div className="overflow-x-auto relative">
-          <table className="w-full text-sm text-left text-gray-300">
-            <thead className="text-xs text-gray-400 bg-gray-800">
+          <table className="w-full text-sm text-left text-neutral-300">
+            <thead className="text-xs text-neutral-400 bg-neutral-800">
               <tr>
                 <th scope="col" className="py-3 px-6">
                   ID
@@ -79,7 +79,7 @@ export default function UsersPage() {
                   return (
                     <tr
                       key={user.user_id}
-                      className="bg-gray-900 border-b border-gray-700"
+                      className="bg-neutral-700 border-b border-gray-700"
                     >
                       <td className="py-4 px-6">{user.user_id}</td>
                       <td className="py-4 px-6">{user.email}</td>

@@ -21,13 +21,18 @@ function Card({ data }: any) {
         <div className="p-3 flex flex-col gap-2">
           <p className="text-xl font-bold p-2gi">{data.product_name}</p>
           <div className="w-full rating flex text-yellow-400">
-            <Icon icon="material-symbols:kid-star" />
-            <Icon icon="material-symbols:kid-star" />
-            <Icon icon="material-symbols:kid-star" />
-            <Icon icon="material-symbols:kid-star" />
-            <Icon icon="material-symbols:kid-star-outline" />
-
-            <p className="text-xs px-2 text-gray-400">{data.rate} out of 5</p>
+            {Array.from({ length: 5 }, (_, i) => (
+              <Icon
+                key={i}
+                icon={
+                  i < data.rate
+                    ? "material-symbols:kid-star"
+                    : "material-symbols:kid-star-outline"
+                }
+                className="cursor-pointer transition-transform duration-300 group-hover:scale-125"
+              />
+            ))}
+            <p className="text-xs px-2 text-gray-400">{data.rate} из 5</p>
           </div>
           <p className="text-sm">
             {data?.product_description

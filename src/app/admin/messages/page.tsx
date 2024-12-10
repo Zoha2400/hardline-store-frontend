@@ -52,13 +52,13 @@ export default function MessagesList() {
   }, []);
 
   return (
-    <main className="min-h-screen -mt-4 bg-gradient-to-b from-black to-gray-900 text-white p-6 flex justify-center">
-      <div className="w-full overflow-auto h-fit max-h-screen p-6 rounded-lg shadow-lg">
+    <main className="min-h-screen -mt-4 bg-transparent text-white p-6 flex justify-center">
+      <div className="w-full overflow-auto h-fit max-h-screen p-6 rounded-lg">
         <header className="mb-12 text-center">
           <h1 className="text-5xl font-extrabold tracking-tight mb-4">
             Сообщения
           </h1>
-          <p className="text-lg text-gray-400 max-w-3xl mx-auto">
+          <p className="text-lg text-neutral-400 max-w-3xl mx-auto">
             Список всех сообщений.
           </p>
         </header>
@@ -68,20 +68,22 @@ export default function MessagesList() {
           <section>
             {messages.length > 0 ? (
               <div className="overflow-auto max-h-[400px]">
-                <table className="w-full text-left text-gray-300">
-                  <thead className="text-xs text-gray-400 bg-gray-800">
+                <table className="w-full text-left text-neutral-300">
+                  <thead className="text-xs text-gray-400 bg-neutral-800">
                     <tr>
-                      <th className="border-b p-3 border-gray-700 py-2">Имя</th>
-                      <th className="border-b p-3  border-gray-700 py-2">
+                      <th className="border-b p-3 border-neutral-700 py-2">
+                        Имя
+                      </th>
+                      <th className="border-b p-3  border-neutral-700 py-2">
                         Email
                       </th>
-                      <th className="border-b p-3  border-gray-700 py-2">
+                      <th className="border-b p-3  border-neutral-700 py-2">
                         Тематика
                       </th>
-                      <th className="border-b p-3  border-gray-700 py-2">
+                      <th className="border-b p-3  border-neutral-700 py-2">
                         Сообщение
                       </th>
-                      <th className="border-b p-3  border-gray-700 py-2">
+                      <th className="border-b p-3  border-neutral-700 py-2">
                         Действия
                       </th>
                     </tr>
@@ -90,7 +92,7 @@ export default function MessagesList() {
                     {messages.map((message: any) => (
                       <tr
                         key={message.id}
-                        className="cursor-pointer hover:bg-gray-700 bg-gray-900 border-b border-gray-700"
+                        className="cursor-pointer hover:bg-neutral-700 bg-neutral-700 border-b border-gray-700"
                         onClick={() => handleRowClick(message)}
                       >
                         <td className="border-b border-gray-700 p-3 truncate text-sm max-w-xs">

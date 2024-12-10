@@ -13,21 +13,27 @@ export default function AdminLayout({
         <nav className="flex flex-col space-y-3">
           <Link
             href="/admin"
-            className="py-2 px-4 bg-neutral-700 rounded-lg hover:bg-green-600 transition"
+            className="py-2 px-4 bg-neutral-700 rounded-lg hover:bg-indigo-600 transition"
           >
             Добавить продукт
           </Link>
           <Link
             href="/admin/messages"
-            className="py-2 px-4 bg-neutral-700 rounded-lg hover:bg-green-600 transition"
+            className="py-2 px-4 bg-neutral-700 rounded-lg hover:bg-indigo-600 transition"
           >
             Сообщения
           </Link>
           <Link
             href="/admin/users"
-            className="py-2 px-4 bg-neutral-700 rounded-lg hover:bg-green-600 transition"
+            className="py-2 px-4 bg-neutral-700 rounded-lg hover:bg-indigo-600 transition"
           >
             Пользователи
+          </Link>
+          <Link
+            href="/admin/products"
+            className="py-2 px-4 bg-neutral-700 rounded-lg hover:bg-indigo-600 transition"
+          >
+            Продукты
           </Link>
         </nav>
       </aside>
