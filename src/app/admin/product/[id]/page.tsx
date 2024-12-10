@@ -3,6 +3,7 @@
 import React, { useEffect, useState } from "react";
 import { useParams, useRouter } from "next/navigation";
 import axios from "axios";
+import Image from "next/image";
 
 const AdminProjectPage = () => {
   const { id }: any = useParams();
@@ -48,7 +49,7 @@ const AdminProjectPage = () => {
         withCredentials: true,
       });
       alert("Project updated successfully");
-      router.push("/admin/projects");
+      router.push("/admin/products");
     } catch (error) {
       console.error("Error updating project:", error);
       alert("Failed to update project. Please try again later.");
@@ -59,6 +60,16 @@ const AdminProjectPage = () => {
     <div className="container mx-auto p-8">
       <h1 className="text-3xl font-bold mb-4 text-white">Edit Project</h1>
       <form onSubmit={(e) => e.preventDefault()}>
+        <div className="mb-4 flex justify-center">
+          <Image
+            width={400}
+            height={400}
+            src={project.img !== "none" ? project.img : "/placeholder.png"}
+            alt={project.product_name}
+            className=" h-48 rounded-2xl bg-red-500 w-fit"
+          />
+        </div>
+
         <div className="mb-4">
           <label
             htmlFor="project_name"
@@ -73,7 +84,7 @@ const AdminProjectPage = () => {
             onChange={(e) =>
               setProject({ ...project, product_name: e.target.value })
             }
-            className="mt-1 p-2 block w-full border border-gray-700 rounded-md bg-gray-800 text-white"
+            className="mt-1 p-2 block w-full border border-neutral-700 rounded-md bg-neutral-800 text-white"
           />
         </div>
 
@@ -90,7 +101,7 @@ const AdminProjectPage = () => {
             onChange={(e) =>
               setProject({ ...project, product_description: e.target.value })
             }
-            className="mt-1 p-2 block w-full border border-gray-700 rounded-md bg-gray-800 text-white"
+            className="mt-1 p-2 block w-full border border-gray-700 rounded-md bg-neutral-800 text-white"
           />
         </div>
 
@@ -108,7 +119,7 @@ const AdminProjectPage = () => {
             onChange={(e) =>
               setProject({ ...project, price: parseFloat(e.target.value) })
             }
-            className="mt-1 p-2 block w-full border border-gray-700 rounded-md bg-gray-800 text-white"
+            className="mt-1 p-2 block w-full border border-gray-700 rounded-md bg-neutral-800 text-white"
           />
         </div>
 
@@ -121,15 +132,7 @@ const AdminProjectPage = () => {
             id="img"
             value={project.img}
             onChange={(e) => setProject({ ...project, img: e.target.value })}
-            className="mt-1 p-2 block w-full border border-gray-700 rounded-md bg-gray-800 text-white"
-          />
-        </div>
-
-        <div className="mb-4">
-          <img
-            src={project.img !== "none" ? project.img : "/placeholder.png"}
-            alt={project.product_name}
-            className="w-full h-48 object-cover rounded-md"
+            className="mt-1 p-2 block w-full border border-gray-700 rounded-md bg-neutral-800 text-white"
           />
         </div>
 
