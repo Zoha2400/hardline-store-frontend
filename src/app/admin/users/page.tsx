@@ -2,7 +2,6 @@
 
 import React, { useEffect, useState } from "react";
 import axios from "axios";
-import Link from "next/link";
 
 interface User {
   user_id: number;
@@ -24,7 +23,7 @@ export default function UsersPage() {
         const response = await axios.get<User[]>(
           "http://localhost:8000/users",
           {
-            withCredentials: true, // Set to true to include credentials (cookies, CORS)
+            withCredentials: true,
           },
         );
         setUsers(response.data);

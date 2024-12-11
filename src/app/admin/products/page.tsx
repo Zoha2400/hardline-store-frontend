@@ -37,15 +37,15 @@ const AdminProductsPage = () => {
 
   return (
     <div className="container mx-auto p-8">
-      <h1 className="text-3xl font-bold mb-4">Admin Products</h1>
+      <h1 className="text-3xl font-bold mb-4">Продукты</h1>
       <table className="min-w-full border border-gray-300">
         <thead>
           <tr className="bg-gray-700 text-white">
             <th className="border px-4 py-2">ID</th>
-            <th className="border px-4 py-2">Name</th>
-            <th className="border px-4 py-2">Description</th>
-            <th className="border px-4 py-2">Price</th>
-            <th className="border px-4 py-2">Image</th>
+            <th className="border px-4 py-2">Название</th>
+            <th className="border px-4 py-2">Описание</th>
+            <th className="border px-4 py-2">Цена</th>
+            <th className="border px-4 py-2">Фото</th>
           </tr>
         </thead>
         <tbody>

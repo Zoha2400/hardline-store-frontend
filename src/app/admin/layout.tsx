@@ -1,11 +1,52 @@
-import React from "react";
+"use client";
+
+import React, { useEffect, useState } from "react";
 import Link from "next/link";
+import Cookies from "js-cookie";
+import axios from "axios";
+import { useRouter } from "next/navigation";
 
 export default function AdminLayout({
   children,
 }: {
   children: React.ReactNode;
 }) {
+  const [role, setRole] = useState<string | null>(null); // State for user role
+  const router = useRouter();
+
+  useEffect(() => {
+    const emailCookie = Cookies.get("email") || "";
+
+    async function fetchUserRole() {
+      try {
+        const response: any = await axios.get("http://localhost:8000/isAdmin", {
+          params: { email: emailCookie || "notEmail" },
+          headers: {
+            "Content-Type": "application/json",
+          },
+        });
+
+        if (response.status === 200) {
+          setRole(response.data.role);
+          console.log(response.data.role);
+
+          if (response.data.role !== "admin") {
+            router.push("/redirect/home");
+          }
+        } else {
+          setRole(null);
+        }
+      } catch (error) {
+        console.error("Error fetching user role:", error);
+        setRole(null);
+      }
+    }
+
+    fetchUserRole();
+
+    console.log(role);
+  }, []);
+
   return (
     <div className="-mt-4 -mb-5 min-h-screen bg-neutral-900 text-white flex">
       <aside className="w-1/4 bg-neutral-800 p-6 flex flex-col space-y-4">
@@ -37,7 +78,15 @@ export default function AdminLayout({
           </Link>
         </nav>
       </aside>
-      <main className="w-3/4 p-6 bg-neutral-900">{children}</main>
+      <main className="w-3/4 p-6 bg-neutral-900">
+        {role === "admin" ? (
+          children
+        ) : (
+          <div>
+            Доступ ограничен. Пожалуйста, войдите в аккаунт администратора.
+          </div>
+        )}
+      </main>
     </div>
   );
 }

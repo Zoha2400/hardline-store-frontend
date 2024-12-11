@@ -46,7 +46,13 @@ function Header() {
 
   const href = isReg ? "/redirect/profile" : "/redirect/reg";
   const adminHref = role === "admin" ? "/redirect/admin" : null;
-  const buttonText = isReg ? "Profile" : "Registration";
+  const buttonText = isReg ? (
+    <>
+      <Icon icon="iconamoon:profile-fill" width="24" height="24" /> Профиль
+    </>
+  ) : (
+    "Регистрация"
+  );
 
   return (
     <header className="fixed top-0 z-20 left-0 bg-neutral-700 w-full h-24 border-b-1 border-b-white text-white">
@@ -103,7 +109,7 @@ function Header() {
                   : "bg-gray-300 text-black hover:bg-blue-600 hover:text-white"
               }`}
             >
-              {buttonText} {/* Use the conditional button text */}
+              {buttonText}
             </div>
           </Link>
         </div>

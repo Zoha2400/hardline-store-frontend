@@ -25,7 +25,7 @@ function Page() {
       try {
         const response: any = await axiosInstance.get(`product/${id}`);
         setCards(response.data);
-        setRating(response.data.rate);
+        setRating(response.data.rate); // Initial rating
       } catch (error) {
         console.error("Error fetching data:", error);
       }
@@ -48,7 +48,7 @@ function Page() {
       );
 
       if (response.status === 200) {
-        setRating(rate);
+        setRating(rate); // Update rating state with new rating
         toast.success("Рейтинг обновлен!", {
           position: "top-right",
           autoClose: 3000,
@@ -103,7 +103,9 @@ function Page() {
                     className="cursor-pointer hover:scale-110 transition-transform duration-300"
                   />
                 ))}
-                <p className="text-xs px-2 text-gray-400">{rating} из 5</p>
+                <p className="text-xs px-2 text-gray-400">
+                  {typeof rating === "number" ? rating.toFixed(1) : "0.0"} из 5
+                </p>
               </div>
 
               <div className="flex mt-8 items-center gap-4">

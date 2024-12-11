@@ -36,6 +36,9 @@ function Profile() {
     fetchData();
   }, []);
 
+  const truncateText = (text: string, maxLength: number) =>
+    text.length > maxLength ? `${text.slice(0, maxLength)}...` : text;
+
   return (
     <div className="w-full max-w-2xl mx-auto p-8 bg-gradient-to-br from-gray-900 via-gray-800 to-black text-gray-200 rounded-xl shadow-2xl border border-gray-700">
       <h1 className="text-3xl font-extrabold mb-6 text-teal-400 tracking-wide">
@@ -47,7 +50,7 @@ function Profile() {
           <span className="w-32 text-gray-500">Email:</span>
           <span className="text-lg flex font-semibold text-gray-200">
             {profileData?.email ? (
-              profileData?.email
+              truncateText(profileData.email, 20)
             ) : (
               <p className="w-28 rounded h-5 bg-gradient-to-r from-gray-700 via-gray-600 to-gray-700 bg-[length:200%_100%] animate-shimmer"></p>
             )}
@@ -56,13 +59,17 @@ function Profile() {
         <span className="flex items-center">
           <p className="w-32 text-gray-500">Телефон:</p>
           <p className="text-lg font-semibold text-gray-200">
-            {profileData?.phone ? profileData?.phone : "не указано"}
+            {profileData?.phone
+              ? truncateText(profileData.phone, 20)
+              : "не указано"}
           </p>
         </span>
         <span className="flex items-center">
           <p className="w-32 text-gray-500">Адрес:</p>
           <p className="text-lg font-semibold text-gray-200">
-            {profileData?.address ? profileData?.address : "не указано"}
+            {profileData?.address
+              ? truncateText(profileData.address, 20)
+              : "не указано"}
           </p>
         </span>
         <div className="flex items-center">
@@ -102,10 +109,6 @@ function Profile() {
         >
           Выйти
         </button>
-
-        {/*<button className="px-6 py-3 bg-gradient-to-r from-red-600 to-pink-600 text-white font-semibold rounded-lg shadow-md hover:shadow-lg transform hover:scale-105 transition-transform">*/}
-        {/*  Удалить*/}
-        {/*</button>*/}
 
         <Link
           href="/redirect/orders"

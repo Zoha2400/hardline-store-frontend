@@ -66,7 +66,7 @@ const AdminProjectPage = () => {
             height={400}
             src={project.img !== "none" ? project.img : "/placeholder.png"}
             alt={project.product_name}
-            className=" h-48 rounded-2xl bg-red-500 w-fit"
+            className=" h-48 rounded-2xl w-fit"
           />
         </div>
 

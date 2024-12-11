@@ -32,7 +32,10 @@ function Card({ data }: any) {
                 className="cursor-pointer transition-transform duration-300 group-hover:scale-125"
               />
             ))}
-            <p className="text-xs px-2 text-gray-400">{data.rate} из 5</p>
+            <p className="text-xs px-2 text-gray-400">
+              {typeof data.rate === "number" ? data.rate.toFixed(1) : "0.0"} из
+              5
+            </p>
           </div>
           <p className="text-sm">
             {data?.product_description

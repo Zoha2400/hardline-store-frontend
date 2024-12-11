@@ -23,7 +23,7 @@ const Home = observer(() => {
     };
 
     fetchData();
-  }, [searchStore.searchText, searchStore.filteredCards]);
+  }, [searchStore.searchText]);
 
   return (
     <div className="container flex justify-center">

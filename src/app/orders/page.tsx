@@ -85,7 +85,7 @@ function Orders() {
             >
               <div className="flex justify-between items-center mb-4">
                 <h3 className="text-xl font-semibold text-neutral-100">
-                  Order ID: {order.order_uuid}
+                  ID Заказа: {order.order_uuid}
                 </h3>
                 <span className="text-xl font-bold text-indigo-400">
                   ${order.total_price}
